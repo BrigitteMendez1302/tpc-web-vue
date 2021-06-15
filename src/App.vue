@@ -68,7 +68,7 @@ export default {
   data: () => ({ drawer: null,
     items: [
       { title: 'Mi calendario', icon: 'mdi-format-list-checks', to: '/' },
-      { title: 'Inicio', icon: 'mdi-format-list-checks', to: '/main/coordinator' },
+      { title: 'Inicio', icon: 'mdi-format-list-checks', to: '/main/tutor' },
       { title: 'Mis reservas', icon: 'mdi-help-box', to: '/lessons' },
 
       { title: 'Mis capacitaciones', icon: 'mdi-help-box', to: '/trainings' },

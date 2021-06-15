@@ -1,3 +1,95 @@
 {
-  "text": "borra esto"
+  "lessons": [
+    {
+      "id": 1,
+      "tutorId": 1,
+      "lessonType": 1,
+      "courseId": 1,
+      "vacants": 2
+    },
+    {
+      "id": 2,
+      "tutorId": 2,
+      "lessonType": 1,
+      "courseId": 2,
+      "vacants": 2
+    },
+    {
+      "id": 3,
+      "tutorId": 3,
+      "lessonType": 2,
+      "courseId": 3,
+      "vacants": 2
+    }
+  ],
+  "tutorials": [
+    {
+      "id": 1,
+      "title": "The Vue Tutorial",
+      "description": "The best tips and tutorials for Vue",
+      "published": true
+    },
+    {
+      "id": 2,
+      "title": "Amazing Microsoft .NET Core.",
+      "description": "Weekly Tutorials about .NET Core and ASP.NET Core",
+      "published": false
+    },
+    {
+      "id": 3,
+      "title": "JavaScript for All",
+      "description": "Tips and tricks about JavaScript from scratch",
+      "published": true
+    },
+    {
+      "id": 4,
+      "title": "Agile World",
+      "description": "The best information of agile development",
+      "published": false
+    },
+    {
+      "id": 5,
+      "title": "Amazing Tutorials.",
+      "description": "Sample Description",
+      "published": false
+    },
+    {
+      "id": 6,
+      "title": "Joc",
+      "description": "hola",
+      "published": false
+    }
+  ],
+  "trainings": [
+    {
+      "id": 1,
+      "tutorId": 1,
+      "assistance": true
+    },
+    {
+      "id": 2,
+      "tutorId": 2,
+      "assistance": false
+    },
+    {
+      "id": 3,
+      "tutorId": 3,
+      "assistance": true
+    },
+    {
+      "id": "4",
+      "tutor": "",
+      "assistance": "true",
+      "tutorId": 2
+    },
+    {
+      "id": "5",
+      "tutorId": 1,
+      "assistance": false
+    }
+  ],
+  "user": {
+    "id": 1,
+    "name": "Angel"
+  }
 }

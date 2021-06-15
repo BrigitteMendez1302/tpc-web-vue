@@ -28,7 +28,17 @@ const routes = [
     path:'/seeoptions',
     name: 'SeeOptions',
     component: () => import('../components/coordinators/see-specific-class-options')
-  }
+  },
+  {
+    path:'/seecomments',
+    name: 'SeeComments',
+    component:() => import('../components/coordinators/see-comments')
+  },
+  {
+    path:'/seecomments/1',
+    name: 'SeeComments',
+    component:() => import('../components/coordinators/see-specific-comment')
+  },
 ]
 
 const router = new VueRouter({

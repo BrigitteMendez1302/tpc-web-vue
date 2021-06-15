@@ -28,7 +28,12 @@ const routes = [
     path:'/seeoptions',
     name: 'SeeOptions',
     component: () => import('../components/coordinators/see-specific-class-options')
-  }
+  },
+  {
+      path: '/coordinator/:id',
+      name: 'MainCoordinator',
+      component: ()=> import('../views/coordinator/main-coordinator')
+  },
 ]
 
 const router = new VueRouter({

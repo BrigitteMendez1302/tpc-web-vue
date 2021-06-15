@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h1>Ver clases</h1>
+    <h1 class="ml-10 mt-8">Ver clases</h1>
     <div>
-      <v-subheader>Selecciona una opción</v-subheader>
-      <div class="buttons">
-        <v-btn>Ver asistencia</v-btn>
-        <v-btn>Ver comentarios</v-btn>
+      <h3 class="text-center" >Selecciona una opción</h3>
+      <div class="buttons text-center flex">
+        <v-btn class="btn-tpc mt-3" color="white">Ver asistencia</v-btn>
+        <v-btn class="btn-tpc mt-3" color="white">Ver comentarios</v-btn>
       </div>
     </div>
   </div>
@@ -19,4 +19,20 @@ name: "see-specific-class-options"
 
 <style scoped>
 
+.btn-tpc{
+  color: #1282A2;
+  border: 1px solid #1282A2 !important;
+  min-width: 40px;
+  height: 30px !important;
+  font-size: 0.75rem !important;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+}
 </style>

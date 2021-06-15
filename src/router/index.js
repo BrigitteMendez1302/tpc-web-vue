@@ -10,22 +10,22 @@ const routes = [
     component: () => import('../views/About.vue')
   },
   {
-    path: '/listworkshops',
+    path: '/tutor/:id/workshops',
     name: 'ListWorkshops',
     component: () => import('../components/tutors/list-workshops')
   },
   {
-    path: '/listworkshops/1',
+    path: '/tutor/:id/workshops/1', //acca seria /tutor/:id/workshops/:wsid
     name: 'SeeSpecificWorkshop',
     component: () => import('../components/tutors/see-specific-workshop')
   },
   {
-    path: '/mainstudent',
+    path: '/student/:id',
     name:'MainStudent',
     component: () => import('../components/students/general-header-side-var')
   },
   {
-    path:'/seeoptions',
+    path:'/coordinator/:id/options',
     name: 'SeeOptions',
     component: () => import('../components/coordinators/see-specific-class-options')
   },
@@ -38,10 +38,16 @@ const routes = [
     path:'/seecomments/1',
     name: 'SeeComments',
     component:() => import('../components/coordinators/see-specific-comment')
+    },
+  {
+    path: '/coordinator/:id',
+    name: 'MainCoordinator',
+    component: ()=> import('../views/coordinator/main-coordinator')
   },
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

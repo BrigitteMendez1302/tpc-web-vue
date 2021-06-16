@@ -2,11 +2,30 @@
   <v-card>
     <v-card class="pa-md-5 mx-lg-14"
             color="indigo lighten-5"
-            width="1080px">
+            align="center">
       <v-row><v-card-title><h2> Encuentra tu taller ideal </h2></v-card-title></v-row></v-card>
-    <v-card-title>
       <v-spacer></v-spacer>
-    </v-card-title>
+      <br/>
+    <v-container fluid>
+      <v-row align="center">
+        <v-col sm="1"></v-col>
+        <v-col sm="3">
+          <v-select :items="options" label="Opciones"> </v-select>
+        </v-col>
+        <v-col sm="3">
+          <v-form ref="form">
+            <v-text-field class="course" label="Ingresa un curso"></v-text-field>
+          </v-form>
+        </v-col>
+        <v-col sm="3">
+          <v-form ref="form">
+            <v-text-field class="tutor" label="Ingresa un tutor"></v-text-field>
+          </v-form>
+        </v-col>
+      </v-row>
+    </v-container>
+
+
     <v-list subheader>
       <v-subheader class="subtitle-1" >Lunes 14 de Junio</v-subheader>
 
@@ -75,6 +94,9 @@ export default {
         {text: 'Type', value: 'lessonType'},
         {text: 'Course', value: 'courseId'},
         {text: 'Date', value: 'date', sortable: false}
+      ],
+      options:[
+        "opcion1", "opcion2"
       ],
       lessons: [],
       displayLessons: [],

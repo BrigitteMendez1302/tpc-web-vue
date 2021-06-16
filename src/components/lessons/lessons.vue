@@ -2,12 +2,30 @@
   <v-card>
     <v-card class="pa-md-5 mx-lg-14"
             color="indigo lighten-5"
-            width="1080px">
+            align="center">
       <v-row><v-card-title><h2> Mis reservas </h2></v-card-title></v-row></v-card>
     <v-card-title>
       <v-spacer></v-spacer>
     </v-card-title>
     <v-list subheader>
+      <v-container fluid>
+        <v-row align="center">
+          <v-col sm="1"></v-col>
+          <v-col sm="3">
+            <v-select :items="options" label="Opciones"> </v-select>
+          </v-col>
+          <v-col sm="3">
+            <v-form ref="form">
+              <v-text-field class="course" label="Ingresa un curso"></v-text-field>
+            </v-form>
+          </v-col>
+          <v-col sm="3">
+            <v-form ref="form">
+              <v-text-field class="tutor" label="Ingresa un tutor"></v-text-field>
+            </v-form>
+          </v-col>
+        </v-row>
+      </v-container>
       <v-subheader class="subtitle-1" >Lunes 14 de Junio</v-subheader>
 
       <v-list-item class=" ma-3 content"

@@ -48,6 +48,21 @@ const routes = [
     path: '/coordinator/:id/profile',
     name: 'CoordinatorProfile',
     component: ()=> import('../views/coordinator/coordinator-profile')
+  },
+  {
+    path: '/coordinator/:id/menu-schedule',
+    name: 'MenuSchedule',
+    component: ()=> import('../views/coordinator/menu-schedule')
+  },
+  {
+    path: '/coordinator/:id/add-schedule',
+    name: 'AddSchedule',
+    component: ()=> import('../views/coordinator/add-schedule')
+  },
+  {
+    path: '/coordinator/:id/modify-schedule',
+    name: 'ModifySchedule',
+    component: ()=> import('../views/coordinator/modify-schedule')
   }
 ]
 

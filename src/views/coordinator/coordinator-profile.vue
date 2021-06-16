@@ -1,8 +1,6 @@
 <template>
   <v-card class="profile">
 
-    <nav-bar-coordinator></nav-bar-coordinator>
-
     <v-container class="my-profile">
       <nav id="my">Mi Perfil</nav>
       <v-spacer class="separate"></v-spacer>

@@ -34,6 +34,16 @@ const routes = [
       name: 'MainCoordinator',
       component: ()=> import('../views/coordinator/main-coordinator')
   },
+  {
+    path: '/student/:id/profile',
+    name: 'StudentProfile',
+    component: ()=> import('../views/student/student-profile')
+  },
+  {
+    path: '/tutor/:id/profile',
+    name: 'StudentProfile',
+    component: ()=> import('../views/tutor/tutor-profile')
+  }
 ]
 
 const router = new VueRouter({

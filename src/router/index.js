@@ -43,6 +43,21 @@ const routes = [
     path:'/seeoptions',
     name: 'SeeOptions',
     component: () => import('../components/coordinators/see-specific-class-options')
+  },
+  {
+    path: '/findworkshops',
+    name: 'FindWorkshops',
+    component: () => import('../components/students/find-workshops')
+  },
+  {
+    path: '/tutor/:id/workshops/1', //acca seria /tutor/:id/workshops/:wsid
+    name: 'SeeSpecificWorkshop',
+    component: () => import('../components/tutors/see-specific-workshop')
+  },
+  {
+    path: '/tutor/:id/workshops',
+    name: 'ListWorkshops',
+    component: () => import('../components/tutors/list-workshops')
   }
 ]
 

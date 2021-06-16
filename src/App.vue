@@ -69,8 +69,8 @@ export default {
     items: [
       { title: 'Mi calendario', icon: 'mdi-format-list-checks', to: '/' },
       { title: 'Inicio', icon: 'mdi-format-list-checks', to: '/main/tutor' },
-      { title: 'Mis reservas', icon: 'mdi-help-box', to: '/lessons' },
-
+      { title: 'Mis reservas', icon: 'mdi-help-box', to: '/lesson' },
+      { title: 'Buscar talleres', icon: 'mdi-help-box', to: '/findworkshops'},
       { title: 'Mis capacitaciones', icon: 'mdi-help-box', to: '/trainings' },
       { title: 'Rendimiento', icon: 'mdi-help-box', to: '/' },
       { title: 'Guia de usuario', icon: 'mdi-help-box', to: '/' },

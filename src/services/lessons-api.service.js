@@ -2,22 +2,22 @@ import http from './http.common'
 
 class LessonsApiService {
     getAll() {
-        return http.get('/lessons')
+        return http.get('/lesson')
     }
 
     get(id) {
-        return http.get(`/lessons/${id}`)
+        return http.get(`/lesson/${id}`)
     }
 
     delete(id) {
-        return http.delete(`/lessons/${id}`)
+        return http.delete(`/lesson/${id}`)
     }
 
     findByCourse(course) {
-        return http.get(`/lessons?course=${course}`)
+        return http.get(`/lesson?course=${course}`)
     }
     create(data) {
-        return http.post("/lessons", data)
+        return http.post("/lesson", data)
     }
 }
 

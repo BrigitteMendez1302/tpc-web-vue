@@ -14,24 +14,24 @@
           </div>
 
           <div id="title-name-div">
-            <v-card-title id="name"><b>Rodrigo Calle Galdos</b></v-card-title>
+            <v-card-title id="name"><b>{{user.firstName +" "+ user.lastName}}</b></v-card-title>
           </div>
 
           <div id="info">
             <v-card-text class="data-info">Codigo:
-              <v-card-text class="data-info">Uxxxxxxxxx</v-card-text>
+              <v-card-text class="data-info">{{user.id}}</v-card-text>
             </v-card-text>
             <v-spacer class="space"></v-spacer>
-            <v-card-text class="data-info">Correo institucional:
-              <v-card-text class="data-info">uxxxxxxxxx@upc.edu.pe</v-card-text>
-            </v-card-text>
-            <v-spacer class="space"></v-spacer>
-            <v-card-text class="data-info">Campus:
-              <v-card-text class="data-info">Villa</v-card-text>
+            <v-card-text class="data-info">Correo Electronico:
+              <v-card-text class="data-info"> {{user.mail}}</v-card-text>
             </v-card-text>
             <v-spacer class="space"></v-spacer>
             <v-card-text class="data-info">Carrera:
-              <v-card-text class="data-info">Ingenieria de Software</v-card-text>
+              <v-card-text class="data-info">{{user.career.careerName}}</v-card-text>
+            </v-card-text>
+            <v-spacer class="space"></v-spacer>
+            <v-card-text class="data-info">Ciclo:
+              <v-card-text class="data-info">{{user.cycleNumber}}</v-card-text>
             </v-card-text>
 
           </div>
@@ -60,11 +60,11 @@ export default {
   async beforeCreate() {
     try {
       let id = this.$route.params.id
-      let response = await TpcApiService.getUserById(id)
-      this.user = response.data
-    }
-    catch (e) {
-      alert("User not found")
+      let response1 = await TpcApiService.getStudentById(id)
+      this.user = response1.data
+
+    } catch (e) {
+      alert("Student not found")
       this.$router.push('/')
     }
   }

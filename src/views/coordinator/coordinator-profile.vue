@@ -15,18 +15,19 @@
           <v-spacer class="divider-img-name"></v-spacer>
 
           <div id="title-name-div">
-            <v-card-title id="name"><b>Karina Portal Carranza</b></v-card-title>
+            <v-card-title id="name"><b>{{user.firstName +" "+ user.lastName}}</b></v-card-title>
+            <v-spacer class="divider-img-name-reset"></v-spacer>
             <v-card-title class="personal-info-title">Informacion de contacto</v-card-title>
           </div>
 
           <div id="info">
             <v-card-text class="data-info">Cargo: Docente</v-card-text>
             <v-spacer class="space"></v-spacer>
-            <v-card-text class="data-info">Departamento: Ingenieria e Informatica</v-card-text>
+            <v-card-text class="data-info">Universidad: {{user.account.university.universityName}}</v-card-text>
             <v-spacer class="space"></v-spacer>
-            <v-card-text class="data-info">Campus: Monterrico</v-card-text>
+            <v-card-text class="data-info">Facutad: {{user.faculty.name}}</v-card-text>
             <v-spacer class="space"></v-spacer>
-            <v-card-text class="data-info">Correo Electronico: Uxxxxxxx@upc.edu.pe</v-card-text>
+            <v-card-text class="data-info">Correo Electronico: {{user.mail}}</v-card-text>
           </div>
 
           <div class="div-button">
@@ -37,9 +38,10 @@
 
         <v-card class="coursescard" color="rgba(3,64,120,0.19)" >
           <v-card-title class="title-courses-card">Cursos</v-card-title>
-          <v-list color="rgba(3,64,120,0.0)">
-            <v-list-item class="course" >SW51 - Programacion 1</v-list-item>
-            <v-list-item class="course" >SW03 - Programacion 2</v-list-item>
+          <v-list color="rgba(3,64,120,0.0)"
+                  v-for="course in courses"
+                  :key="course.id">
+            <v-list-item class="course">{{course.name}}</v-list-item>
           </v-list>
         </v-card>
 
@@ -52,8 +54,30 @@
 </template>
 
 <script>
+import TpcApiService from "@/services/tpc-api.service";
+
 export default {
-  name: "coordinator-profile"
+  name: "coordinator-profile",
+  data: function () {
+    return {
+      user: {},
+      courses: []
+    }
+  },
+  async beforeCreate() {
+    try {
+      let id = this.$route.params.id
+      let response1 = await TpcApiService.getCoordinatorById(id)
+      this.user = response1.data
+
+      let response2 = await TpcApiService.getUserCoursesById(id)
+      this.courses = response2.data
+
+    } catch (e) {
+      alert("Tutor not found")
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 
@@ -88,6 +112,9 @@ export default {
 
 .divider-img-name {
   height: 10px;
+}
+.divider-img-name-reset {
+  margin-top: -20px;
 }
 
 #image-div {

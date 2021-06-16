@@ -35,17 +35,17 @@ const routes = [
       component: ()=> import('../views/coordinator/main-coordinator')
   },
   {
-    path: '/student/:id/profile',
+    path: '/student/:id/profile', /*id:104*/
     name: 'StudentProfile',
     component: ()=> import('../views/student/student-profile')
   },
   {
-    path: '/tutor/:id/profile',
+    path: '/tutor/:id/profile', /*id:102*/
     name: 'StudentProfile',
     component: ()=> import('../views/tutor/tutor-profile')
   },
   {
-    path: '/coordinator/:id/profile',
+    path: '/coordinator/:id/profile', /*id:103*/
     name: 'CoordinatorProfile',
     component: ()=> import('../views/coordinator/coordinator-profile')
   },

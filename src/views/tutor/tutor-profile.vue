@@ -9,24 +9,27 @@
 
         <v-card class="profilecard" color="rgba(3,64,120,0.19)">
           <div id="image-div">
-            <v-img src="https://c8.alamy.com/comp/JGAAWE/illustration-flat-icons-of-teacher-and-his-students-have-graduated-JGAAWE.jpg" class="img"></v-img>
+            <v-img
+                src="https://c8.alamy.com/comp/JGAAWE/illustration-flat-icons-of-teacher-and-his-students-have-graduated-JGAAWE.jpg"
+                class="img"></v-img>
           </div>
 
           <v-spacer class="divider-img-name"></v-spacer>
 
           <div id="title-name-div">
-            <v-card-title id="name"><b>Rodrigo Calle Galdos</b></v-card-title>
+            <v-card-title id="name"><b>{{user.firstName +" "+ user.lastName}}</b></v-card-title>
+            <v-spacer class="divider-img-name-reset"></v-spacer>
             <v-card-title class="personal-info-title">Informacion de contacto</v-card-title>
           </div>
 
           <div id="info">
             <v-card-text class="data-info">Cargo: Tutor</v-card-text>
             <v-spacer class="space"></v-spacer>
-            <v-card-text class="data-info">Carrera: Ciencias de la computacion</v-card-text>
+            <v-card-text class="data-info">Universidad: {{user.account.university.universityName}}</v-card-text>
             <v-spacer class="space"></v-spacer>
-            <v-card-text class="data-info">Campus: San Isidro</v-card-text>
+            <v-card-text class="data-info">Facutad: {{user.faculty.name}}</v-card-text>
             <v-spacer class="space"></v-spacer>
-            <v-card-text class="data-info">Correo Electronico: Uxxxxxxx@upc.edu.pe</v-card-text>
+            <v-card-text class="data-info">Correo Electronico: {{user.mail}}</v-card-text>
           </div>
 
           <div class="div-button">
@@ -35,11 +38,12 @@
 
         </v-card>
 
-        <v-card class="coursescard" color="rgba(3,64,120,0.19)" >
+        <v-card class="coursescard" color="rgba(3,64,120,0.19)">
           <v-card-title class="title-courses-card">Cursos</v-card-title>
-          <v-list color="rgba(3,64,120,0.0)">
-            <v-list-item class="course" >SW51 - Programacion 1</v-list-item>
-            <v-list-item class="course" >SW03 - Programacion 2</v-list-item>
+          <v-list color="rgba(3,64,120,0.0)"
+                  v-for="course in courses"
+                  :key="course.id">
+            <v-list-item class="course">{{course.name}}</v-list-item>
           </v-list>
         </v-card>
 
@@ -51,8 +55,30 @@
 </template>
 
 <script>
+import TpcApiService from "@/services/tpc-api.service";
+
 export default {
-  name: "tutor-profile"
+  name: "tutor-profile",
+  data: function () {
+    return {
+      user: {},
+      courses: []
+    }
+  },
+  async beforeCreate() {
+    try {
+      let id = this.$route.params.id
+      let response1 = await TpcApiService.getTutorById(id)
+      this.user = response1.data
+
+      let response2 = await TpcApiService.getUserCoursesById(id)
+      this.courses = response2.data
+
+    } catch (e) {
+      alert("Tutor not found")
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 
@@ -77,7 +103,7 @@ export default {
   width: 80%;
 }
 
-#my{
+#my {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
@@ -87,6 +113,10 @@ export default {
 
 .divider-img-name {
   height: 10px;
+}
+
+.divider-img-name-reset {
+  margin-top: -20px;
 }
 
 #image-div {
@@ -119,7 +149,7 @@ export default {
 .coursescard {
   height: 480px;
   width: 400px;
-  background: rgba(3,64,120,0.32);
+  background: rgba(3, 64, 120, 0.32);
 }
 
 

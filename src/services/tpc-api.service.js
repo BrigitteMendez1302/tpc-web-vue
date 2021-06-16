@@ -8,6 +8,11 @@ class TpcApiService {
     {
         return http.get(`/users/${id}`);
     }
+    getCoursesByUserId(id)
+    {
+        return http.get(`/users/${id}/courses`);
+    }
+
 }
 
 export default new TpcApiService();

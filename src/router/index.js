@@ -24,6 +24,12 @@ const routes = [
     name:'MainStudent',
     component: () => import('../components/students/general-header-side-var')
   },
+
+  {
+    path: '/:id',
+    name:'MainStudent',
+    component: () => import('../components/students/general-header-side-var')
+  },
   {
     path:'/coordinator/:id/options',
     name: 'SeeOptions',

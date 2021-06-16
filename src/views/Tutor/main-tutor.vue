@@ -2,23 +2,23 @@
   <div class="contenedor mx-auto">
     <div class="princpal d-flex align-center justify-space-between mx-auto rounded-xl pa-5 my-15">
       <div class="d-flex flex-column">
-          <h2 class="text-h2 font-weight-bold">Hola {{user.firstName}}</h2>
-          <p class="text-h4">¿Que deseas hacer hoy?</p>
+        <h2 class="text-h2 font-weight-bold">Hola {{user.firstName}}</h2>
+        <p class="text-h4">¿Que deseas hacer hoy?</p>
       </div>
       <img src="../../assets/user.png" alt="Icono de usuario">
     </div>
     <div class="d-flex justify-space-between align-center">
       <v-btn elevation="2" outlined x-large class="text-h5 pa-12 btn-main font-weight-bold" color="#1282A2">
-        Gestionar mis <br> horarios
+        Ver mis <br> tutorias
       </v-btn>
       <v-btn elevation="2" outlined x-large class="text-h5 pa-12 btn-main font-weight-bold" color="#1282A2">
-        Programar <br> horario
+        Ver mis <br> talleres
       </v-btn>
       <v-btn elevation="2" outlined x-large class="text-h5 pa-12 btn-main font-weight-bold" color="#1282A2">
-        Ver reportes
+        Ver mi <br> rendimiento
       </v-btn>
       <v-btn elevation="2" outlined x-large class="text-h5 pa-12 btn-main font-weight-bold"  color="#1282A2">
-        Enviar correo
+        Ver <br> horarios
       </v-btn>
     </div>
   </div>
@@ -27,7 +27,7 @@
 <script>
 import TpcApiService from '../../services/tpc-api.service'
 export default {
-  name: "mainCoordinator",
+  name: "mainStudent",
   data: function () {
     return {
       user: {}
@@ -50,7 +50,7 @@ export default {
 <style scoped>
 .contenedor
 {
-  width: 100%;
+  width: 80%;
 }
 .princpal
 {

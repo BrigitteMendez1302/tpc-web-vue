@@ -1,4 +1,4 @@
-<template>
+g<template>
   <div>
     <v-list subheader>
       <h1>Mis talleres</h1>

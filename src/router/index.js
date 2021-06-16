@@ -63,6 +63,11 @@ const routes = [
     path: '/coordinator/:id/modify-schedule',
     name: 'ModifySchedule',
     component: ()=> import('../views/coordinator/modify-schedule')
+  },
+  {
+    path: '/coordinator/:id/class-assistance',
+    name: 'ClassAssistance',
+    component: ()=> import('../views/coordinator/class-assistance')
   }
 ]
 

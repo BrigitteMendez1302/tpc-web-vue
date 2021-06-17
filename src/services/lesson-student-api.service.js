@@ -1,7 +1,10 @@
 import http from './http.common';
 class LessonStudentApiService{
     getLessonStudentsByLessonId(lessonId){
-        return http.get(`/lessons/${lessonId}`)
+        return http.get(`/lessonstudent/lessons/${lessonId}`)
+    }
+    getLessonStudentsByLessonIdAndStudentId(lessonId, studentId){
+        return http.get(`/lessonstudent/${lessonId}/students/${studentId}`)
     }
 }
 

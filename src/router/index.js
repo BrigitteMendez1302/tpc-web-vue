@@ -30,12 +30,12 @@ const routes = [
     component: () => import('../components/coordinators/see-specific-class-options')
   },
   {
-    path:'/coordinator/:id/seecomments',
+    path:'/coordinator/:id/lessons/:lessonId/seecomments',
     name: 'see-comments',
     component:() => import('../components/coordinators/see-comments')
   },
   {
-    path:'/coordinator/:id/seecomments/1',
+    path:'/coordinator/:id/lessons/:lessonId/seecomments/:studentId',
     name: 'see-specific-comment',
     component:() => import('../components/coordinators/see-specific-comment')
     },

@@ -3,20 +3,19 @@
     <v-list subheader>
       <h1>Comentarios</h1>
       <v-list-item class=" ma-3 content"
-                   v-for="chat in recent"
-                   :key="chat.title"
+                   v-for="comment in comments"
+                   :key="comment.lesson.startDate"
       >
         <v-list-item-content>
-          <v-list-item-title class="m-list-item-title">alumno.nombre</v-list-item-title>
+          <v-list-item-title class="m-list-item-title">{{ comment.student.firstName }} {{comment.student.lastName}}</v-list-item-title>
         </v-list-item-content>
 
         <v-list-item-content>
-          <v-list-item-title class="m-list-item-title" >alumno.numestrellas <v-icon color="yellow">mdi-star</v-icon> </v-list-item-title>
+          <v-list-item-title class="m-list-item-title" >{{comment.qualification}} <v-icon color="yellow">mdi-star</v-icon> </v-list-item-title>
         </v-list-item-content>
-        <!--        v-text="chat.title"-->
         <v-list-item-content>
           <div>
-            <v-btn class="ml-percent" color="white">Detalles</v-btn>
+            <v-btn class="ml-percent" color="white" @click="navigateToSeeComment(comment.student.id)" >Detalles</v-btn>
           </div>
         </v-list-item-content>
       </v-list-item>
@@ -25,34 +24,29 @@
 </template>
 
 <script>
+import LessonStudentApiService from '../../services/lesson-student-api.service'
+
 export default {
 name: "see-comments",
   data: () => ({
-    recent: [
-      {
-        active: true,
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-        title: 'Jason Oner',
-      },
-      {
-        active: true,
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-        title: 'Mike Carlson',
-      },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-        title: 'Cindy Baker',
-      },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-        title: 'Ali Connors',
-      },
-    ],
-    previous: [{
-      title: 'Travis Howard',
-      avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-    }],
+    comments:[],
   }),
+  async created(){
+    try {
+      let lessonId = this.$route.params.lessonId;
+      let response = await LessonStudentApiService.getLessonStudentsByLessonId(lessonId);
+      this.comments = response.data;
+    }
+    catch (e) {
+      alert ("No hay comentarios para esta clase");
+      this.$router.push('/');
+    }
+  },
+  methods:{
+    navigateToSeeComment(id) {
+      this.$router.push({name: 'see-specific-comment', params: { studentId: id}});
+    },
+  }
 }
 </script>
 

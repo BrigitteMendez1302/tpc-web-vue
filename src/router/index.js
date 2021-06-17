@@ -35,6 +35,12 @@ const routes = [
       name: 'MainCoordinator',
       component: ()=> import('../views/coordinator/main-coordinator')
   },
+
+  {
+    path: '/tutor/:id/assistance',
+    name: 'Assistance',
+    component: ()=> import('../components/tutors/assistance')
+  },
 ]
 
 const router = new VueRouter({

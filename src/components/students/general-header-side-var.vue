@@ -68,7 +68,7 @@
       </v-list>
       <!--  -->
     </v-navigation-drawer>
-<main><reservar-tutoria></reservar-tutoria></main>
+<main><assistence></assistence></main>
 
   </v-app>
 </template>
@@ -78,10 +78,10 @@
 
 
 
-import ReservarTutoria from "./reservar-tutoria";
+import Assistence from "../tutors/assistance";
 export default {
   name: 'marco-general-student',
-  components: {ReservarTutoria},
+  components: {Assistence},
   data: () => ({
     drawer: null,
     principales: [

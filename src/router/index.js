@@ -15,9 +15,9 @@ const routes = [
 
   },
   {
-    path:'/lessons',
-    name: 'lessons',
-    component: () => import('../components/lessons/lessons.vue')
+    path:'/lesson/student/:id',
+    name: 'find-workshops',
+    component: () => import('../components/students/find-workshops.vue')
   },
   {
     path: '/trainings',
@@ -25,9 +25,9 @@ const routes = [
     component: () => import('../components/trainings/trainings.vue')
   },
   {
-    path: '/listworkshops',
-    name: 'ListWorkshops',
-    component: () => import('../components/tutors/list-workshops')
+    path: '/lesson',
+    name: 'lesson',
+    component: () => import('../components/lessons/lessons.vue')
   },
   {
     path: '/listworkshops/1',
@@ -45,11 +45,6 @@ const routes = [
     component: () => import('../components/coordinators/see-specific-class-options')
   },
   {
-    path: '/findworkshops',
-    name: 'FindWorkshops',
-    component: () => import('../components/students/find-workshops')
-  },
-  {
     path: '/tutor/:id/workshops/1', //acca seria /tutor/:id/workshops/:wsid
     name: 'SeeSpecificWorkshop',
     component: () => import('../components/tutors/see-specific-workshop')
@@ -62,6 +57,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

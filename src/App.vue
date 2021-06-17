@@ -68,9 +68,9 @@ export default {
   data: () => ({ drawer: null,
     items: [
       { title: 'Mi calendario', icon: 'mdi-format-list-checks', to: '/' },
-      { title: 'Inicio', icon: 'mdi-format-list-checks', to: '/tutors/1' },
-      { title: 'Mis reservas', icon: 'mdi-help-box', to: '/lessons' },
-      { title: 'Buscar talleres', icon: 'mdi-help-box', to: '/findworkshops'},
+      { title: 'Inicio', icon: 'mdi-format-list-checks', to: '/tutors/102' },
+      { title: 'Mis reservas', icon: 'mdi-help-box', to: '/lesson/student/104' },
+      { title: 'Buscar talleres', icon: 'mdi-help-box', to: '/lesson'},
       { title: 'Mis capacitaciones', icon: 'mdi-help-box', to: '/trainings' },
       { title: 'Rendimiento', icon: 'mdi-help-box', to: '/' },
       { title: 'Guia de usuario', icon: 'mdi-help-box', to: '/' },

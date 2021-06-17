@@ -3,7 +3,7 @@
     <v-card class="pa-md-5 mx-lg-14"
             color="indigo lighten-5"
             align="center">
-      <v-row><v-card-title><h2> Mis reservas </h2></v-card-title></v-row></v-card>
+      <v-row><v-card-title><h2> Encuentra tu taller ideal </h2></v-card-title></v-row></v-card>
     <v-card-title>
       <v-spacer></v-spacer>
     </v-card-title>
@@ -29,8 +29,8 @@
       <v-subheader class="subtitle-1" >Lunes 14 de Junio</v-subheader>
 
       <v-list-item class=" ma-3 content"
-                   v-for="les in displayLessons"
-                   :key="les"
+                   v-for="les in lessons"
+                   :key="les.id"
       >
         <v-list-item-content>
           <v-col cols="3">
@@ -40,20 +40,20 @@
 
         <v-list-item-content>
           <v-col cols="7">
-            <v-list-item-title class="m-list-item-title" >{{les.tutorId}}</v-list-item-title>
+            <v-list-item-title class="m-list-item-title" >{{les.tutor.firstName}} {{ les.tutor.lastName}}</v-list-item-title>
           </v-col>
         </v-list-item-content>
 
         <v-list-item-content>
           <v-col cols="7">
-            <v-list-item-title class="m-list-item-title" >{{les.lessonType}}</v-list-item-title>
+            <v-list-item-title class="m-list-item-title" >{{les.lessonType.lessonTypeName}}</v-list-item-title>
           </v-col>
         </v-list-item-content>
 
         <v-list-item-content>
           <v-col cols="10"
                  align-self="justify">
-            <v-list-item-title class="m-list-item-title" >{{les.courseId}}</v-list-item-title>
+            <v-list-item-title class="m-list-item-title" >{{les.course.name}}</v-list-item-title>
           </v-col>
         </v-list-item-content>
         <v-list-item-content>
@@ -88,17 +88,13 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
-
-    <v-card-actions>
-      <v-btn small color="error" @click="deleteItem">Remove</v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
 <script>
 import LessonApiService from '/src/services/lessons-api.service.js'
 export default {
-  name: "lessons",
+  name: "lesson",
   data() {
     return {
       search: '',

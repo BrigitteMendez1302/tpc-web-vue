@@ -3,7 +3,7 @@
     <v-card class="pa-md-5 mx-lg-14"
             color="indigo lighten-5"
             align="center">
-      <v-row><v-card-title><h2> Encuentra tu taller ideal </h2></v-card-title></v-row></v-card>
+      <v-row><v-card-title><h2> Mis reservas </h2></v-card-title></v-row></v-card>
       <v-spacer></v-spacer>
       <br/>
     <v-container fluid>
@@ -28,40 +28,34 @@
 
     <v-list subheader>
       <v-subheader class="subtitle-1" >Lunes 14 de Junio</v-subheader>
-
       <v-list-item class=" ma-3 content"
-                   v-for="les in displayLessons"
-                   :key="les"
+                   v-for="les in lessons"
+                   :key="les.id"
       >
         <v-list-item-content>
           <v-col cols="3">
             <v-list-item-title class="m-list-item-title">{{les.id}}</v-list-item-title>
           </v-col>
         </v-list-item-content>
-
-        <v-list-item-content>
-          <v-col cols="7">
-            <v-list-item-title class="m-list-item-title" >{{les.tutorId}}</v-list-item-title>
-          </v-col>
-        </v-list-item-content>
-
-        <v-list-item-content>
-          <v-col cols="7">
-            <v-list-item-title class="m-list-item-title" >{{les.lessonType}}</v-list-item-title>
-          </v-col>
-        </v-list-item-content>
-
         <v-list-item-content>
           <v-col cols="10"
                  align-self="justify">
-            <v-list-item-title class="m-list-item-title" >{{les.courseId}}</v-list-item-title>
+            <v-list-item-title class="m-list-item-title" >{{les.course.name}}</v-list-item-title>
           </v-col>
         </v-list-item-content>
         <v-list-item-content>
-          <v-col cols="3">
-            <v-list-item-title class="m-list-item-title" >{{les.date()}}</v-list-item-title>
+          <v-col cols="7">
+            <v-list-item-title class="m-list-item-title" >{{les.lessonType.lessonTypeName}}</v-list-item-title>
           </v-col>
         </v-list-item-content>
+        <v-list-item-content>
+          <v-col cols="7">
+            <v-list-item-title class="m-list-item-title" >{{les.tutor.firstName}}</v-list-item-title>
+          </v-col>
+        </v-list-item-content>
+
+
+
         <!--        v-text="chat.title"-->
         <v-list-item-content>
           <v-row align-content="center" justify="center">
@@ -89,10 +83,6 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
-
-    <v-card-actions>
-      <v-btn small color="error" @click="deleteItem">Remove</v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
@@ -107,10 +97,9 @@ export default {
       dialogDelete: false,
       headers: [
         {text: 'Id', value: 'id'},
-        {text: 'Tutor', value: 'tutorId'},
-        {text: 'Type', value: 'lessonType'},
-        {text: 'Course', value: 'courseId'},
-        {text: 'Date', value: 'date', sortable: false}
+        {text: 'Tutor', value: 'tutor'},
+        {text: 'Course', value: 'course'},
+        {text: 'Type', value: 'lessonType', sortable: false}
       ],
       options:[
         "opcion1", "opcion2"
@@ -120,17 +109,15 @@ export default {
       editedIndex: -1,
       editedItem: {
         id: 0,
-        tutorId: 0,
-        lessonType: 0,
-        courseId: 0,
-        date: Date.now()
+        tutor: "",
+        course: "",
+        lessonType: ""
       },
       defaultItem: {
         id: 0,
-        tutorId: 0,
-        lessonType: 0,
-        courseId: 0,
-        date: Date.now()
+        tutor: "",
+        course: "",
+        lessonType: ""
       },
     }
   },
@@ -161,38 +148,12 @@ export default {
             console.log(e)
           })
     },
-    getDisplayLesson(lesson) {
-      var t
-      if(lesson.tutorId === 1){
-        t = "Ricardo"
-      }else if(lesson.tutorId === 2){
-        t = "Juan"
-      }else if(lesson.tutorId === 3){
-        t = "Luis"
-      }
-
-      var type
-      if(lesson.lessonType === 1){
-        type = "Tutoria"
-      }else if(lesson.lessonType === 2){
-        type = "Taller"
-      }
-
-      var course
-      if(lesson.courseId === 1){
-        course = "Programacion 1"
-      }else if(lesson.courseId === 2){
-        course = "Programacion 2"
-      }else if(lesson.courseId === 3){
-        course = "Complejidad Algoritmica"
-      }
-
+    getDisplayLesson(ls) {
       return {
-        id: lesson.id,
-        tutorId: t,
-        lessonType: type,
-        courseId: course,
-        date: lesson.date()
+        id: ls.id,
+        tutor: ls.tutor.firstName + " " + ls.tutor.lasName,
+        lessonType: ls.lessonType.lessonTypeName,
+        courseId: ls.course.name
       }
     },
     editItem(item) {
@@ -283,5 +244,10 @@ export default {
   color: #1282A2;
   border: 1px solid #1282A2 !important;
 }
+.ml-percent-1{
+   height: 30px !important;
+   color: #1282A2;
+   border: 1px solid #1282A2 !important;
+ }
 </style>
 

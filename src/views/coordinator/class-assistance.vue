@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     getAverage() {
-      return this.value = ((this.lessonsStudents.length/this.lesson.lessonType.studentsQuantity)*100);
+      return this.value = Math.round((this.lessonsStudents.length/this.lesson.lessonType.studentsQuantity)*100);
     }
   }
 }

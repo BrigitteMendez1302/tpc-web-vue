@@ -41,6 +41,17 @@ const routes = [
     name: 'Assistance',
     component: ()=> import('../components/tutors/assistance')
   },
+
+  {
+    path: '/student/:id/reservationtutorials',
+    name: 'Reservation',
+    component: ()=> import('../components/students/reservar-tutoria')
+  },
+  {
+    path: '/student/:id/mainstudent',
+    name: 'Assistance',
+    component: ()=> import('../views/student/main-student')
+  },
 ]
 
 const router = new VueRouter({

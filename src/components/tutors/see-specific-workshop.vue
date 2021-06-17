@@ -6,9 +6,9 @@
         <h2 class="ft-20">Detalles de la clase</h2>
         <div class="pl-5">
           <h3>Tema: {{ workshop.description }}</h3>
-          <h3>Fecha: {{ workshop.startDate }}</h3>
-          <h3>Inicio de clase: {{ workshop.startDate }}</h3>
-          <h3>Fin de clase: {{ workshop.endDate }}</h3>
+          <h3>Fecha: {{ formatDateIsoDate(workshop.startDate) }}</h3>
+          <h3>Inicio de clase: {{ formatAMPM(workshop.startDate) }}</h3>
+          <h3>Fin de clase: {{ formatAMPM(workshop.endDate) }}</h3>
         </div>
       </div>
       <div class="buttons ml-5 mt-6">
@@ -114,8 +114,7 @@
                 Cancelar
               </v-btn>
               <v-btn class="btn-dialog"
-                  text
-                  @click="dialog = false"
+                  text @click="save"
               >
                 Guardar
               </v-btn>
@@ -137,20 +136,25 @@ import LessonApiService from '../../services/lesson-api.service'
 export default {
   name: "seeSpecificWorkshop",
   data: () => ({
+    workshop:{},
+    myDate: '',
+    myStartTime:'09:57',
+    myEndTime:'10:45',
     dialog: false,
     fromDateMenu: false,
     fromDateVal: null,
-    fromTimeMenu: false,
+    fromTimeMenu: '10:45',
     fromTimeVal: null,
     fromTimeEndMenu: false,
     fromTimeEndVal: null,
-    workshop:{}
+    editedIndex: -1,
   }),
-  async beforeCreate() {
+  async created() {
     try {
       let id = this.$route.params.workshopId
       let response = await LessonApiService.getWorkshopById(id)
       this.workshop = response.data
+      //this.myDate = this.formatDateIsoDate(this.workshop.startDate)
     }
     catch (e) {
       alert("Taller no encontrado")
@@ -169,6 +173,43 @@ export default {
       return this.fromTimeEndVal;
     },
   },
+  methods:{
+    save() {
+      LessonApiService.update(this.workshop.id, this.workshop)
+          .then(() => {
+            this.dialog = false
+            console.log("Actualizado con exito");
+          })
+          .catch(e => {
+            console.log(e);
+          })
+    },
+    formatDateIsoDate(paramDate){
+      let date = new Date(paramDate);
+      let year = date.getFullYear();
+      let month = date.getMonth()+1;
+      let dt = date.getDate();
+
+      if (dt < 10) {
+        dt = '0' + dt;
+      }
+      if (month < 10) {
+        month = '0' + month;
+      }
+      return year+'-' + month + '-'+dt
+    },
+    formatAMPM(isoDate) {
+      let date = new Date(isoDate)
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+      let ampm = hours >= 12 ? ' pm ' : ' am ';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      let strTime =  hours + ':' + minutes + ' ' + ampm;
+      return strTime;
+    },
+  }
 }
 </script>
 

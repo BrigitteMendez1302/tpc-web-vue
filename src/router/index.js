@@ -41,7 +41,7 @@ const routes = [
   },
   {
     path: '/tutor/:id/profile', /*id:102*/
-    name: 'StudentProfile',
+    name: 'TutorProfile',
     component: ()=> import('../views/tutor/tutor-profile')
   },
   {
@@ -50,22 +50,22 @@ const routes = [
     component: ()=> import('../views/coordinator/coordinator-profile')
   },
   {
-    path: '/coordinator/:id/menu-schedule',
+    path: '/menu-schedule', /*id:103*/
     name: 'MenuSchedule',
     component: ()=> import('../views/coordinator/menu-schedule')
   },
   {
-    path: '/coordinator/:id/add-schedule',
+    path: '/add-schedule', /*id:103*/
     name: 'AddSchedule',
     component: ()=> import('../views/coordinator/add-schedule')
   },
   {
-    path: '/coordinator/:id/modify-schedule',
+    path: '/modify-schedule', /*id:103*/
     name: 'ModifySchedule',
     component: ()=> import('../views/coordinator/modify-schedule')
   },
   {
-    path: '/coordinator/:id/class-assistance',
+    path: '/class-assistance',  /*id:103*/
     name: 'ClassAssistance',
     component: ()=> import('../views/coordinator/class-assistance')
   }

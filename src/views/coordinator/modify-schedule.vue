@@ -4,76 +4,103 @@
     <v-container class="container-modify-schedule">
 
       <nav class="title"><v-icon>mdi-arrow-left</v-icon>Modificar Horario</nav>
-
       <v-spacer class="divide"></v-spacer>
 
       <nav class="container-form">
+
         <v-card class="form-modify" color="rgba(243, 249, 250, 1)">
 
           <nav class="form-space">
             <nav class="name-form">Seleccionar horario</nav>
+            <v-combobox clearable v-model="selectSchedule" hide-selected dense :items="schedules" item-text="id">
+
+            </v-combobox>
           </nav>
 
           <nav class="form-space">
             <nav class="name-form-sub">Tipo de clase:</nav>
             <nav class="combo">
-              <v-combobox clearable
-                          v-model="selectClass"
-                          :items="items"
-                          hide-selected
-                          dense
-                          id="combo1"
-              ></v-combobox>
+              <v-combobox clearable v-model="selectClass" hide-selected dense :items="classes" item-text="lessonTypeName">
+
+              </v-combobox>
             </nav>
           </nav>
 
           <nav class="form-space">
             <nav class="name-form-sub">Tutor:</nav>
             <nav class="combo">
-              <v-combobox clearable
-                              v-model="selectTutor"
-                              :items="items"
-                              hide-selected
-                              dense
-              ></v-combobox>
+              <v-combobox clearable v-model="selectTutor" hide-selected dense :items="tutors" :item-text="fullName">
+              </v-combobox>
             </nav>
           </nav>
 
-          <nav class="form-space">
-            <nav class="name-form-sub">Fecha:</nav>
-            <nav class="combo">
-              <v-combobox clearable
-                          v-model="selectDate"
-                          :items="items"
-                          hide-selected
-                          dense
-              ></v-combobox>
-            </nav>
-          </nav>
+          <!--select date-->
+          <v-menu v-model="menuDate"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  :nudge-right="100" max-width="290px" min-width="290px">
 
-          <nav class="form-space">
-            <nav class="name-form-sub">Inicio de clase:</nav>
-            <nav class="combo">
-              <v-combobox clearable
-                          v-model="selectStart"
-                          :items="items"
-                          hide-selected
-                          dense
-              ></v-combobox>
-            </nav>
-          </nav>
+            <template v-slot:activator="{ on }">
+              <nav class="form-space">
+                <div class="name-form-sub">Fecha:</div>
+                <nav class="combo">
+                  <v-text-field label="" prepend-icon="mdi-calendar" readonly :value="fromDateDisp" v-on="on"
+                  ></v-text-field>
+                </nav>
+              </nav>
+            </template>
 
-          <nav class="form-space">
-            <nav class="name-form-sub">Fin de clase:</nav>
-            <nav class="combo">
-              <v-combobox clearable
-                          v-model="selectEnd"
-                          :items="items"
-                          hide-selected
-                          dense
-              ></v-combobox>
-            </nav>
-          </nav>
+            <v-date-picker
+                locale="en-in"
+                v-model="fromDateVal"
+                no-title
+                @input="menuDate = false"
+            ></v-date-picker>
+
+          </v-menu>
+
+          <!--first-->
+          <v-menu ref="menu1" v-model="menuStart" :close-on-content-click="false" :return-value.sync="timeStart"
+              transition="scale-transition" offset-y max-width="290px" min-width="290px" :nudge-right="100">
+            <template v-slot:activator="{ on, attrs }">
+              <nav class="form-space">
+                <nav class="name-form-sub">Inicio de clase:</nav>
+                <nav class="combo">
+                  <v-text-field label="" prepend-icon="mdi-clock-time-four-outline" readonly v-model="timeStart"
+                      v-bind="attrs" v-on="on"
+                  ></v-text-field>
+                </nav>
+              </nav>
+            </template>
+
+            <v-time-picker
+                v-if="menuStart"
+                v-model="timeStart"
+                @click:minute="$refs.menu1.save(timeStart)"
+            ></v-time-picker>
+          </v-menu>
+
+          <!--second-->
+          <v-menu ref="menu2" v-model="menuEnd" :close-on-content-click="false" :return-value.sync="timeEnd"
+                  transition="scale-transition" offset-y max-width="290px" min-width="290px" :nudge-right="100">
+            <template v-slot:activator="{ on, attrs }">
+              <nav class="form-space">
+                <nav class="name-form-sub">Fin de clase:</nav>
+                <nav class="combo">
+                  <v-text-field label="" prepend-icon="mdi-clock-time-four-outline" readonly v-model="timeEnd"
+                                v-bind="attrs" v-on="on"
+                  ></v-text-field>
+                </nav>
+              </nav>
+            </template>
+
+            <v-time-picker
+                v-if="menuEnd"
+                v-model="timeEnd"
+                @click:minute="$refs.menu2.save(timeEnd)"
+            ></v-time-picker>
+          </v-menu>
+
 
         </v-card>
 
@@ -92,28 +119,50 @@
 </template>
 
 <script>
+import TpcApiService from "@/services/tpc-api.service";
+
 export default {
   name: "modify-schedule",
   data () {
     return {
-      selectSchedule: '',
-      selectClass: '',
-      selectTutor: '',
-      selectDate: '',
-      selectStart: '',
-      selectEnd: '',
-      items: [
-        'Programming',
-        'Design',
-        'Vue',
-        'Vuetify'
-      ]
+      timeStart: null,
+      menuStart: false,
+
+      timeEnd: null,
+      menuEnd: false,
+
+      fromDateVal: null,
+      menuDate: false,
+
+      tutors: [],
+      classes: [],
+      schedules: []
     }
+  },
+  computed: {
+    fromDateDisp() {
+      return this.fromDateVal;
+      // format/do something with date
+    }
+  },
+  async beforeCreate() {
+    let response = await TpcApiService.getTutors()
+    this.tutors = response.data
+
+    let responseClass = await TpcApiService.getLessonTypes()
+    this.classes = responseClass.data
+
+    let responseSchedule = await TpcApiService.getMeetings()
+    this.schedules = responseSchedule.data
+  },
+  methods: {
+    fullName: item => item.firstName + ' ' + item.lastName
   }
 }
 </script>
 
 <style scoped>
+
 .combo {
   width: 50%;
   height: 25px;
@@ -160,7 +209,8 @@ export default {
   font-style: normal;
   font-weight: 500;
 
-  width: 250px;
+  width: 50%;
+  height: 25px;
 }
 
 .divide {

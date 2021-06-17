@@ -20,11 +20,23 @@ class TpcApiService {
     {
         return http.get(`/coordinators/${id}`);
     }
-
     getUserCoursesById(id)
     {
         return http.get(`/users/${id}/courses`);
     }
+    getTutors()
+    {
+        return http.get(`/tutors`);
+    }
+    getLessonTypes()
+    {
+        return http.get(`/lessontype`);
+    }
+    getMeetings()
+    {
+        return http.get(`/meeting`);
+    }
+
 }
 
 export default new TpcApiService();

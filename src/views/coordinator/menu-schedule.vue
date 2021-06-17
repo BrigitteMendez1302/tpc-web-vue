@@ -9,7 +9,7 @@
 
       <div class="btn-group">
         <v-spacer class="divide"></v-spacer>
-        <div class="div-btn"><v-btn class="btn">Agregar manualmente</v-btn></div>
+        <div class="div-btn"><v-btn router-link :to="'/add-schedule'" class="btn">Agregar manualmente</v-btn></div>
         <v-spacer class="divide"></v-spacer>
         <div class="div-btn"><v-btn class="btn">Importar lista</v-btn></div>
       </div>
@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "menu-schedule"
+  name: "menu-schedule",
 }
 </script>
 

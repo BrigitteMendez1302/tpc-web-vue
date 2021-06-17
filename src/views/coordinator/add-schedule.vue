@@ -12,6 +12,12 @@
 
           <nav class="form-space">
             <nav class="name-form">Seleccionar horario</nav>
+            <v-combobox clearable
+                        v-model="selectSchedule"
+                        :items="items"
+                        hide-selected
+                        dense
+            ></v-combobox>
           </nav>
 
           <nav class="form-space">
@@ -22,7 +28,6 @@
                           :items="items"
                           hide-selected
                           dense
-                          id="combo1"
               ></v-combobox>
             </nav>
           </nav>
@@ -156,7 +161,8 @@ export default {
   font-style: normal;
   font-weight: 500;
 
-  width: 250px;
+  width: 50%;
+  height: 25px;
 }
 
 .divide {

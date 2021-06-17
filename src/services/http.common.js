@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 export default axios.create({
-    baseURL: 'http://lucas161920-001-site1.ctempurl.com/api',
+    baseURL: 'https://localhost:44392/swagger/index.html',
     headers: {'Content-type': 'application/json'}
 });

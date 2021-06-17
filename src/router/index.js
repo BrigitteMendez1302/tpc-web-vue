@@ -34,6 +34,11 @@ const routes = [
       name: 'MainCoordinator',
       component: ()=> import('../views/coordinator/main-coordinator')
   },
+  {
+    path: '/coordinator/:id',
+    name: 'VerReportes',
+    component: ()=> import('../views/coordinator/ver-reportes')
+  },
 ]
 
 const router = new VueRouter({

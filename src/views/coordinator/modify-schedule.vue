@@ -3,7 +3,7 @@
 
     <v-container class="container-modify-schedule">
 
-      <nav class="title"><v-icon>mdi-arrow-left</v-icon>Modificar Horario</nav>
+      <nav class="title"><v-icon @click="$router.go(-1)">mdi-arrow-left</v-icon>Modificar Horario</nav>
       <v-spacer class="divide"></v-spacer>
 
       <nav class="container-form">

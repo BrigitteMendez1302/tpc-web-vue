@@ -9,13 +9,13 @@
 
       <div class="btn-group">
         <v-spacer class="divide"></v-spacer>
-        <div class="div-btn"><v-btn router-link :to="'/add-schedule'" class="btn">Agregar manualmente</v-btn></div>
+        <div class="div-btn"><v-btn router-link :to="'/coordinator/103/add-schedule'" class="btn">Agregar manualmente</v-btn></div>
         <v-spacer class="divide"></v-spacer>
         <div class="div-btn"><v-btn class="btn">Importar lista</v-btn></div>
       </div>
 
       <div class="arrows">
-        <div class="div-arrow"><v-icon>mdi-arrow-left</v-icon>Anterior</div>
+        <div class="div-arrow"><v-icon @click="$router.go(-1)">mdi-arrow-left</v-icon>Anterior</div>
         <div class="div-arrow">Siguiente<v-icon>mdi-arrow-right</v-icon></div>
       </div>
 

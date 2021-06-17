@@ -3,7 +3,7 @@
 
     <v-container class="container-modify-schedule">
 
-      <nav class="title" v-if="$router"><v-icon>mdi-arrow-left</v-icon>Agregar Horario</nav>
+      <nav class="title" v-if="$router"><v-icon @click="$router.go(-1)">mdi-arrow-left</v-icon>Agregar Horario</nav>
 
       <v-spacer class="divide"></v-spacer>
 

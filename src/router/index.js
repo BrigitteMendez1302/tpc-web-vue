@@ -50,22 +50,22 @@ const routes = [
     component: ()=> import('../views/coordinator/coordinator-profile')
   },
   {
-    path: '/menu-schedule', /*id:103*/
+    path: '/coordinator/:id/menu-schedule', /*id:103*/
     name: 'MenuSchedule',
     component: ()=> import('../views/coordinator/menu-schedule')
   },
   {
-    path: '/add-schedule', /*id:103*/
+    path: '/coordinator/:id/add-schedule', /*id:103*/
     name: 'AddSchedule',
     component: ()=> import('../views/coordinator/add-schedule')
   },
   {
-    path: '/modify-schedule', /*id:103*/
+    path: '/coordinator/:id/modify-schedule', /*id:103*/
     name: 'ModifySchedule',
     component: ()=> import('../views/coordinator/modify-schedule')
   },
   {
-    path: '/:id/class-assistance',  /*id:1*/
+    path: '/coordinator/:id/class-assistance',  /*id:1*/
     name: 'ClassAssistance',
     component: ()=> import('../views/coordinator/class-assistance')
   }

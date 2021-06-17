@@ -64,11 +64,28 @@
         </v-list-item-content>
         <!--        v-text="chat.title"-->
         <v-list-item-content>
-          <v-col cols="5">
-            <div>
-              <v-btn class="ml-percent" color="white">Detalles</v-btn>
+          <v-row align-content="center" justify="center">
+            <div class="text-center">
+              <v-btn
+                  class="ml-percent"
+                  color="white"
+              >
+                Detalles
+              </v-btn>
             </div>
-          </v-col>
+            <v-col sm="2"></v-col>
+            <div>
+              <v-btn
+                  class="ml-percent-1"
+                  x-small
+                  fab
+                  color="white"
+                  elevation="0"
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </div>
+          </v-row>
         </v-list-item-content>
       </v-list-item>
     </v-list>

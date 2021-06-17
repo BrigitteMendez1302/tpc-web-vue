@@ -57,17 +57,34 @@
           </v-col>
         </v-list-item-content>
         <v-list-item-content>
-          <v-col cols="3">
+          <v-col cols="3" sm="3">
             <v-list-item-title class="m-list-item-title" >{{les.vacants}}</v-list-item-title>
           </v-col>
         </v-list-item-content>
         <!--        v-text="chat.title"-->
-        <v-list-item-content>
-          <v-col cols="5">
-            <div>
-              <v-btn class="ml-percent" color="white">Detalles</v-btn>
-            </div>
-          </v-col>
+        <v-list-item-content content="center">
+          <v-row align-content="center" justify="center">
+              <div class="text-center">
+                <v-btn
+                    class="ml-percent"
+                    color="white"
+                >
+                  Detalles
+                </v-btn>
+              </div>
+              <v-col sm="2"></v-col>
+              <div>
+                <v-btn
+                    class="ml-percent-1"
+                    x-small
+                    fab
+                    color="white"
+                    elevation="0"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </div>
+          </v-row>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -258,6 +275,11 @@ export default {
 .ml-percent{
   margin-left: 25%;
   min-width: 60px;
+  height: 30px !important;
+  color: #1282A2;
+  border: 1px solid #1282A2 !important;
+}
+.ml-percent-1{
   height: 30px !important;
   color: #1282A2;
   border: 1px solid #1282A2 !important;

@@ -36,6 +36,12 @@ class TpcApiService {
     {
         return http.get(`/meeting`);
     }
+    getAssistance(id){
+        return http.get(`/lessonstudent/${id}`);
+    }
+    getLesson(id){
+        return http.get(`/lesson/${id}`);
+    }
 
 }
 

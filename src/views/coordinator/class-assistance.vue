@@ -8,7 +8,7 @@
       <div class="information">
 
         <div class="box">
-          <div class="percent">
+          <!--<div class="percent">
             <svg>
               <circle cx="72" cy="72" r="60"></circle>
               <circle cx="72" cy="72" r="60"></circle>
@@ -18,32 +18,28 @@
               <h2>75<span>%</span></h2>
             </div>
 
-          </div>
+          </div>-->
+          <v-progress-circular class="new" :rotate="360" :size="125" :width="15" :value=getAverage() color="teal">
+            <div class="number"><h2>{{value}}<span>%</span></h2></div>
+          </v-progress-circular>
+
 
           <div class="export"><v-btn class="btn-export">Exportar</v-btn></div>
 
         </div>
 
-        <div class="container-student">
+        <div class="container-student" v-for="assistance in lessonsStudents" :key="assistance.lesson.id">
 
           <div class="assistence-student">
-            <div class="space-student-hour"><p class="name">Alumno: </p>  <p>Codigo: </p></div>
-            <div class="space-student-hour"><p>Hora de entrada: </p><p>Hora de salida: </p></div>
-          </div>
+            <div class="space-student-hour">
+              <p class="name">Alumno: {{assistance.student.firstName}}</p>
+              <p>Codigo: {{assistance.student.id}}</p>
+            </div>
 
-          <div class="assistence-student">
-            <div class="space-student-hour"><p class="name">Alumno: </p>  <p>Codigo: </p></div>
-            <div class="space-student-hour"><p>Hora de entrada: </p>  <p>Hora de salida: </p></div>
-          </div>
-
-          <div class="assistence-student">
-            <div class="space-student-hour"><p class="name">Alumno: </p>  <p>Codigo: </p></div>
-            <div class="space-student-hour"><p>Hora de entrada: </p>  <p>Hora de salida: </p></div>
-          </div>
-
-          <div class="assistence-student">
-            <div class="space-student-hour"><p class="name">Alumno: </p>  <p>Codigo: </p></div>
-            <div class="space-student-hour"><p>Hora de entrada: </p>  <p>Hora de salida: </p></div>
+            <div class="space-student-hour">
+              <p>Hora de entrada: {{assistance.lesson.startDate}}</p>
+              <p>Hora de salida: {{assistance.lesson.endDate}}</p>
+            </div>
           </div>
 
         </div>
@@ -54,8 +50,36 @@
 </template>
 
 <script>
+import TpcApiService from "@/services/tpc-api.service";
+
 export default {
-  name: "class-assistance"
+  name: "class-assistance",
+  data: function () {
+    return {
+      lessonsStudents: [],
+      lesson: null,
+      value: 13
+    }
+  },
+  async beforeCreate() {
+    try {
+      let id = this.$route.params.id
+      let response = await TpcApiService.getAssistance(id)
+      this.lessonsStudents = response.data
+
+      let responseLesson = await TpcApiService.getLesson(id)
+      this.lesson = responseLesson.data
+    }
+    catch (e) {
+      alert("Lesson not found")
+      this.$router.push('/')
+    }
+  },
+  methods: {
+    getAverage() {
+      return this.value = ((this.lessonsStudents.length/this.lesson.lessonType.studentsQuantity)*100);
+    }
+  }
 }
 </script>
 

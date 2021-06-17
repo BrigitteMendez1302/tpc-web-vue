@@ -65,7 +65,7 @@ const routes = [
     component: ()=> import('../views/coordinator/modify-schedule')
   },
   {
-    path: '/class-assistance',  /*id:103*/
+    path: '/:id/class-assistance',  /*id:1*/
     name: 'ClassAssistance',
     component: ()=> import('../views/coordinator/class-assistance')
   }

@@ -26,11 +26,6 @@ const routes = [
   },
 
   {
-    path: '/:id',
-    name:'MainStudent',
-    component: () => import('../components/students/general-header-side-var')
-  },
-  {
     path:'/coordinator/:id/options',
     name: 'SeeOptions',
     component: () => import('../components/coordinators/see-specific-class-options')

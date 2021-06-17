@@ -68,13 +68,8 @@
       </v-list>
       <!--  -->
     </v-navigation-drawer>
+<main><reservar-tutoria></reservar-tutoria></main>
 
-
-
-    <v-main>
-      <router-view></router-view>
-     <reservar-tutoria></reservar-tutoria>
-    </v-main>
   </v-app>
 </template>
 

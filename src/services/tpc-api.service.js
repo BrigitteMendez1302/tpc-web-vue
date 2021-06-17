@@ -2,11 +2,11 @@ import http from './http.common';
 
 class TpcApiService {
     getAllUsers() {
-        return http.get('/users');
+        return http.get('/api/users');
     }
     getUserById(id)
     {
-        return http.get(`/users/${id}`);
+        return http.get(`/api/users/${id}`);
     }
 }
 

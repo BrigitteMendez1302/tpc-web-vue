@@ -5,10 +5,10 @@
       <div class="workshop-details ml-5 mr-5 pa-5">
         <h2 class="ft-20">Detalles de la clase</h2>
         <div class="pl-5">
-          <h3>Tema: taller.tema</h3>
-          <h3>Fecha: taller.fecha</h3>
-          <h3>Inicio de clase: taller.startdate</h3>
-          <h3>Fin de clase: taller.enddate</h3>
+          <h3>Tema: {{ workshop.description }}</h3>
+          <h3>Fecha: {{ workshop.startDate }}</h3>
+          <h3>Inicio de clase: {{ workshop.startDate }}</h3>
+          <h3>Fin de clase: {{ workshop.endDate }}</h3>
         </div>
       </div>
       <div class="buttons ml-5 mt-6">
@@ -122,7 +122,9 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-btn class=" btn-tpc btn-tpc-r ml-2" color="white">Ingresar a la sesion</v-btn>
+        <v-btn class=" btn-tpc btn-tpc-r ml-2" color="white"
+               href="https://meet.google.com/new" target="_blank"
+        >Ingresar a la sesion</v-btn>
       </div>
     </div>
   </div>
@@ -130,6 +132,7 @@
 
 <script>
 
+import LessonApiService from '../../services/lesson-api.service'
 
 export default {
   name: "seeSpecificWorkshop",
@@ -141,7 +144,19 @@ export default {
     fromTimeVal: null,
     fromTimeEndMenu: false,
     fromTimeEndVal: null,
+    workshop:{}
   }),
+  async beforeCreate() {
+    try {
+      let id = this.$route.params.workshopId
+      let response = await LessonApiService.getWorkshopById(id)
+      this.workshop = response.data
+    }
+    catch (e) {
+      alert("Taller no encontrado")
+      this.$router.push('/')
+    }
+  },
   computed: {
     fromDateDisp() {
       return this.fromDateVal;
@@ -153,7 +168,7 @@ export default {
     fromTimeEndDisp(){
       return this.fromTimeEndVal;
     },
-  }
+  },
 }
 </script>
 
@@ -177,7 +192,7 @@ h1{
 h3{
   font-size: 15px;
   font-family: Roboto;
-  font-weight: lighter;
+  font-weight: normal;
   margin-top: 5px;
 }
 .btn-tpc{

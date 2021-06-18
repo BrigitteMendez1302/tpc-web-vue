@@ -5,6 +5,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+<<<<<<< HEAD
     path: '/',
 <<<<<<< HEAD
     name: 'Login',
@@ -87,6 +88,26 @@ const routes = [
     path: '/student/:id/mainstudent',
     name: 'Assistance',
     component: ()=> import('../views/student/main-student')
+=======
+    path: '/coordinator/:id/main',
+    name: 'MainCoordinator',
+    component: ()=> import('../views/coordinator/main-coordinator')
+  },
+  {
+    path: '/coordinator/:id/reports',
+    name: 'VerReportes',
+    component: ()=> import('../views/coordinator/ver-reportes')
+  },
+  {
+    path: '/coordinator/:id/reports/complaints',
+    name: 'VerQuejas',
+    component: ()=> import('../views/coordinator/ver-quejas')
+  },
+  {
+    path: '/coordinator/:id/reports/complaints/:cid',
+    name: 'DetalleQueja',
+    component: ()=> import('../views/coordinator/detalle-queja')
+>>>>>>> feature/components-julissa
   },
   {
     path: '/student/:id/profile', /*id:104*/

@@ -14,9 +14,15 @@
       <v-btn elevation="2" outlined x-large class="text-h5 pa-12 btn-main font-weight-bold" color="#1282A2">
         Programar <br> horario
       </v-btn>
-      <v-btn elevation="2" outlined x-large class="text-h5 pa-12 btn-main font-weight-bold" color="#1282A2">
+      <v-btn elevation="2" outlined x-large class="text-h5 pa-12 btn-main font-weight-bold" color="#1282A2"
+             href="reports">
         Ver reportes
       </v-btn>
+
+<!--      <v-btn icon href="/fooRoute" target="_blank">-->
+<!--        <v-icon>window</v-icon> Link Text-->
+<!--      </v-btn>-->
+
       <v-btn elevation="2" outlined x-large class="text-h5 pa-12 btn-main font-weight-bold"  color="#1282A2">
         Enviar correo
       </v-btn>
@@ -43,7 +49,7 @@ export default {
       alert("User not found")
       this.$router.push('/')
     }
-  }
+  },
 }
 </script>
 

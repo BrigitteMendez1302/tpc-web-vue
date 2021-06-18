@@ -15,7 +15,7 @@
       <v-list-item>
         <v-list-item-content>
 
-          <v-list-item-title class="text-h6">
+          <v-list-item-title class="text-h6 text-color">
             <br> <br><br>
             Principal
           </v-list-item-title>
@@ -29,49 +29,70 @@
           nav
       >
         <v-list-item
-            v-for="item in items"
-            :key="item.title"
+            v-for="item in principales"
+            :key="item.principal"
             link
         >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.principal }}</v-list-item-title>
+            <v-list-item-title  class="text-color ">{{ item.principal }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
       <v-list-item>
         <v-list-item-content>
 
-          <v-list-item-title class="text-h6">
+          <v-list-item-title class="text-h6 text-color">
             <br> <br>
             Consultas
           </v-list-item-title>
 
         </v-list-item-content>
       </v-list-item>
+
+      <v-list
+          dense
+          nav
+      >
+        <v-list-item
+            v-for="item in consultas"
+            :key="item.consulta"
+            link
+
+        >
+
+          <v-list-item-content>
+            <v-list-item-title  class="text-color">{{ item.consulta }} </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
       <!--  -->
     </v-navigation-drawer>
+<main><assistence></assistence></main>
 
-
-
-    <v-main>
-      <router-view></router-view>
-    </v-main>
   </v-app>
 </template>
 
 <script>
+
+
+
+
+import Assistence from "../tutors/assistance";
 export default {
   name: 'marco-general-student',
+  components: {Assistence},
   data: () => ({
     drawer: null,
-    items: [
-      {principal: 'Inicio', icon: 'mdi-view-dashboard'},
-      {principal: 'Horarios disponibles', icon: 'mdi-image'},
-      {principal: 'Mis reservas', icon: 'mdi-help-box'},
+    principales: [
+      {principal: 'Inicio'},
+      {principal: 'Horarios disponibles'},
+      {principal: 'Mis reservas'},
+    ],
+    consultas: [
+      {consulta: 'Guia de usuario'},
+      {consulta: 'Preguntas frecuentes'},
+
     ],
 
   }),
@@ -97,8 +118,14 @@ export default {
   height: 80px;
   background: #0A1128;
   display: flex;
+
 }
 
+.text-color{
+  color: #F3F9FA;
+  align-content: flex-end;
+
+}
 #side-bar{
   background: #034078D4;
 

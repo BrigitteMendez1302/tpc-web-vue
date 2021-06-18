@@ -24,6 +24,7 @@ const routes = [
     name:'main-student',
     component: () => import('../components/students/general-header-side-var')
   },
+
   {
     path:'/coordinator/:id/options',
     name: 'see-options',
@@ -43,6 +44,23 @@ const routes = [
     path: '/coordinator/:id',
     name: 'main-coordinator',
     component: ()=> import('../views/coordinator/main-coordinator')
+  },
+
+  {
+    path: '/tutor/:id/assistance',
+    name: 'Assistance',
+    component: ()=> import('../components/tutors/assistance')
+  },
+
+  {
+    path: '/student/:id/reservationtutorials',
+    name: 'Reservation',
+    component: ()=> import('../components/students/reservar-tutoria')
+  },
+  {
+    path: '/student/:id/mainstudent',
+    name: 'Assistance',
+    component: ()=> import('../views/student/main-student')
   },
 ]
 

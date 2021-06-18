@@ -11,28 +11,38 @@ const routes = [
   },
   {
     path: '/tutor/:id/workshops',
-    name: 'ListWorkshops',
+    name: 'list-workshops',
     component: () => import('../components/tutors/list-workshops')
   },
   {
-    path: '/tutor/:id/workshops/1', //acca seria /tutor/:id/workshops/:wsid
-    name: 'SeeSpecificWorkshop',
+    path: '/tutor/:id/workshops/:workshopId', //acca seria /tutor/:id/workshops/:id
+    name: 'see-specific-workshop',
     component: () => import('../components/tutors/see-specific-workshop')
   },
   {
     path: '/student/:id',
-    name:'MainStudent',
+    name:'main-student',
     component: () => import('../components/students/general-header-side-var')
   },
   {
     path:'/coordinator/:id/options',
-    name: 'SeeOptions',
+    name: 'see-options',
     component: () => import('../components/coordinators/see-specific-class-options')
   },
   {
-      path: '/coordinator/:id',
-      name: 'MainCoordinator',
-      component: ()=> import('../views/coordinator/main-coordinator')
+    path:'/coordinator/:id/lessons/:lessonId/seecomments',
+    name: 'see-comments',
+    component:() => import('../components/coordinators/see-comments')
+  },
+  {
+    path:'/coordinator/:id/lessons/:lessonId/seecomments/:studentId',
+    name: 'see-specific-comment',
+    component:() => import('../components/coordinators/see-specific-comment')
+    },
+  {
+    path: '/coordinator/:id',
+    name: 'main-coordinator',
+    component: ()=> import('../views/coordinator/main-coordinator')
   },
 ]
 

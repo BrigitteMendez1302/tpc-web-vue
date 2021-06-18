@@ -6,6 +6,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+<<<<<<< HEAD
     name: 'Login',
     component: () => import('../views/Login')
   },
@@ -13,6 +14,30 @@ const routes = [
     path: '/tutor/:id/workshops',
     name: 'list-workshops',
     component: () => import('../components/tutors/list-workshops')
+=======
+    name: 'About',
+    component: () => import('../views/About.vue')
+  },{
+    path: '/tutors/:id',
+    name: 'Home',
+    component: () => import('../components/main/main-tutor.vue')
+
+  },
+  {
+    path:'/lesson/student/:id',
+    name: 'find-workshops',
+    component: () => import('../components/students/find-workshops.vue')
+  },
+  {
+    path: '/trainings',
+    name: 'trainings',
+    component: () => import('../components/trainings/trainings.vue')
+  },
+  {
+    path: '/lesson',
+    name: 'lesson',
+    component: () => import('../components/lessons/lessons.vue')
+>>>>>>> feature/components-Josias
   },
   {
     path: '/tutor/:id/workshops/:workshopId', //acca seria /tutor/:id/workshops/:id
@@ -31,6 +56,7 @@ const routes = [
     component: () => import('../components/coordinators/see-specific-class-options')
   },
   {
+<<<<<<< HEAD
     path:'/coordinator/:id/lessons/:lessonId/seecomments',
     name: 'see-comments',
     component:() => import('../components/coordinators/see-comments')
@@ -96,6 +122,16 @@ const routes = [
     path: '/coordinator/:id/class-assistance',  /*id:1*/
     name: 'ClassAssistance',
     component: ()=> import('../views/coordinator/class-assistance')
+=======
+    path: '/tutor/:id/workshops/1', //acca seria /tutor/:id/workshops/:wsid
+    name: 'SeeSpecificWorkshop',
+    component: () => import('../components/tutors/see-specific-workshop')
+  },
+  {
+    path: '/tutor/:id/workshops',
+    name: 'ListWorkshops',
+    component: () => import('../components/tutors/list-workshops')
+>>>>>>> feature/components-Josias
   }
 ]
 

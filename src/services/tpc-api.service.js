@@ -9,6 +9,7 @@ class TpcApiService {
         return http.get(`/users/${id}`);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     getCoursesByUserId(id)
     {
         return http.get(`/users/${id}/courses`);
@@ -50,6 +51,8 @@ class TpcApiService {
     }
 >>>>>>> feature/components-rodrigo
 
+=======
+>>>>>>> feature/components-Josias
 }
 
 export default new TpcApiService();

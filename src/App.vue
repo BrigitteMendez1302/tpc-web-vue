@@ -20,17 +20,11 @@
     </v-app-bar>
 
     <v-main>
-<<<<<<< HEAD
         <router-view></router-view>
-    </v-main>
-=======
-      <router-view></router-view>
     </v-main>
 
     <v-footer>
     </v-footer>
-
->>>>>>> feature/components-julissa
   </v-app>
 </template>
 
@@ -38,25 +32,18 @@
 import NavigationDrawer from "./components/general/navigation-drawer-coordinator";
 
 export default {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   name: 'App',
   components: {
     NavigationDrawer,
   },
->>>>>>> feature/components-julissa
-  data: () => ({
-    drawer: true,
-    group: null,
-  }),
   methods: {
     toggleDrawer() {
       this.drawer = !this.drawer;
     },
-  }
-=======
-  data: () => ({ drawer: null,
+  },
+  data: () => ({
+    drawer: null,
+    group: null,
     items: [
       { title: 'Mi calendario', icon: 'mdi-format-list-checks', to: '/' },
       { title: 'Inicio', icon: 'mdi-format-list-checks', to: '/tutors/102' },
@@ -68,7 +55,6 @@ export default {
       { title: 'Preguntas frecuenctes', icon: 'mdi-help-box', to: '/' },
     ],
   }),
->>>>>>> feature/components-Josias
 }
 </script>
 

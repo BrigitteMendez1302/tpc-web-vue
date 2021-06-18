@@ -75,7 +75,7 @@ export default {
       this.courses = response2.data
 
     } catch (e) {
-      alert("Tutor not found")
+      alert("tutor not found")
       this.$router.push('/')
     }
   }

@@ -102,7 +102,7 @@ export default {
       dialogDelete: false,
       headers: [
         {text: 'Id', value: 'id'},
-        {text: 'Tutor', value: 'tutorId'},
+        {text: 'tutor', value: 'tutorId'},
         {text: 'Type', value: 'lessonType'},
         {text: 'Course', value: 'courseId'},
         {text: 'Vacants', value: 'vacants', sortable: false}

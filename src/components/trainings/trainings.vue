@@ -85,7 +85,7 @@ export default {
       dialogDelete: false,
       headers: [
         {text: 'Id', value: 'id'},
-        {text: 'Tutor', value: 'tutor'},
+        {text: 'tutor', value: 'tutor'},
         {text: 'Assistance', value: 'assistance', sortable: false}
       ],
       trainings: [],

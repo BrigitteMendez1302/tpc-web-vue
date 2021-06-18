@@ -8,14 +8,10 @@ class TpcApiService {
     {
         return http.get(`/users/${id}`);
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     getCoursesByUserId(id)
     {
         return http.get(`/users/${id}/courses`);
     }
-=======
     getTutorById(id)
     {
         return http.get(`/tutors/${id}`);
@@ -32,9 +28,6 @@ class TpcApiService {
     {
         return http.get(`/users/${id}/courses`);
     }
-=======
-    //julissa
->>>>>>> feature/components-julissa
     getTutors()
     {
         return http.get(`/tutors`);
@@ -43,7 +36,6 @@ class TpcApiService {
     {
         return http.get(`/lessontype`);
     }
-<<<<<<< HEAD
     getMeetings()
     {
         return http.get(`/meeting`);
@@ -54,11 +46,6 @@ class TpcApiService {
     getLesson(id){
         return http.get(`/lesson/${id}`);
     }
->>>>>>> feature/components-rodrigo
-
-=======
->>>>>>> feature/components-Josias
-=======
     getLessons()
     {
         return http.get(`/lesson`);
@@ -74,7 +61,6 @@ class TpcApiService {
     getLessonStudentsByLessonIdAndStudentId(lessonId, studentId){
         return http.get(`/lessonstudent/${lessonId}/students/${studentId}`)
     }
->>>>>>> feature/components-julissa
 }
 
 export default new TpcApiService();

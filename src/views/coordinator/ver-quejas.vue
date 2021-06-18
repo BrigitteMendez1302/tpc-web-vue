@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-container class="d-flex">
-<!--      <v-btn class="ma-2 white" elevation="0" icon>-->
-<!--        <v-icon>mdi-chevron-left</v-icon>-->
-<!--      </v-btn>-->
+      <!--      <v-btn class="ma-2 white" elevation="0" icon>-->
+      <!--        <v-icon>mdi-chevron-left</v-icon>-->
+      <!--      </v-btn>-->
       <h1 class="font-weight-bold" >Ver quejas</h1>
       <v-spacer></v-spacer>
       <v-btn class="btn-principal cyan--text text--darken-2" outlined
@@ -14,20 +14,19 @@
 
     <v-container class="pa-0 ma-0" v-show="!hidden">
       <v-container class="d-flex pa-0 ma-0">
-        <v-select :items="courses" label="Curso" outlined></v-select>
-        <v-select :items="lessonTypes" label="Tipo" outlined></v-select>
-        <v-select :items="tutors" label="Tutor" outlined></v-select>
-        <v-select :items="schedules" label="Horario" outlined></v-select>
+        <v-select :items="courses" label="Selecciona un curso" outlined></v-select>
+        <v-select :items="lessonTypes" label="Selecciona un tipo" outlined></v-select>
+        <v-select :items="tutors" label="Selecciona un tutor" outlined></v-select>
       </v-container>
     </v-container>
 
     <v-list fluid>
-      <v-list-item v-for="item in items" class="list-principal"
-                   :key="item.title"
+      <v-list-item v-for="item in lessons" class="list-principal"
+                   :key="item.id"
                    @click="selected">
         <v-list-item-content>
-          <v-list-item-title>{{item.firstName}} {{item.lastName}}</v-list-item-title>
-          <v-list-item-subtitle>{{ item.subject }}</v-list-item-subtitle>
+          <v-list-item-title>{{item}}</v-list-item-title>
+          <v-list-item-subtitle>{{ item.qualification }}</v-list-item-subtitle>
           <!--          <v-list-item-subtitle>{{ item.content }}</v-list-item-subtitle>-->
         </v-list-item-content>
 
@@ -41,15 +40,21 @@
 </template>
 
 <script>
+import TpcApiService from '../../services/tpc-api.service'
+
 export default {
   name: "ver-quejas",
   data: () => ({
-    hidden: false,
-    courses: ['Programación 1','Programación 2' ],
-    lessonTypes: ['Tutoría', 'Taller'],
-    tutors: ['Rodrigo', 'Josealdo', 'Lucas'],
-    schedules: ['09:00 - 11:00', '11:00 - 13:00', '13:00 - 15:00', '15:00 - 17:00'],
+    hidden: true,
+
+    courses: [],
+    lessonTypes: [],
+    tutors: [],
+    lessons: [],
+
     selected: [1],
+    comments: [],
+
     items: [
       {
         firstName: 'Brigitte',
@@ -88,30 +93,49 @@ export default {
       },
     ],
   }),
+  async beforeCreate(){
+    let responsec = await TpcApiService.getCourses()
+    this.courses = responsec.data
+
+    let responselt = await TpcApiService.getLessonTypes()
+    this.lessonTypes = responselt.data
+
+    let responset = await TpcApiService.getTutors()
+    this.tutors = responset.data
+
+    let responsel = await TpcApiService.getLessons()
+    this.lessons = responsel.data
+  },
+  methods:{
+    navigateToSeeComment(id) {
+      this.$router.push({name: 'see-specific-comment', params: { studentId: id}});
+    },
+
+  }
 }
 </script>
 
 <style scoped>
-  .btn-principal{
-    text-transform: capitalize;
-    margin-bottom: 0.5rem;
-    border-color: #1282A2;
-    background-color: white;
-    color:#0097A7;
-  }
-  .btn-principal:hover{
-    border: none;
-  }
-  .v-btn {
-    letter-spacing: 0 !important;
-  }
-  .list-principal {
-    background-color: #F7F9FA;
-    margin-bottom: 0.5rem;
-    border: none;
-  }
-  .v-select {
-    width: 20%;
-    background-color: white;
-  }
+.btn-principal{
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+  border-color: #1282A2;
+  background-color: white;
+  color:#0097A7;
+}
+.btn-principal:hover{
+  border: none;
+}
+.v-btn {
+  letter-spacing: 0 !important;
+}
+.list-principal {
+  background-color: #F7F9FA;
+  margin-bottom: 0.5rem;
+  border: none;
+}
+.v-select {
+  width: 20%;
+  background-color: white;
+}
 </style>

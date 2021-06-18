@@ -70,6 +70,16 @@ export default {
       content: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?",
     },
   ],
+  // async getLessonStudentsByLessonId(lessonId) {
+  //   try {
+  //     let response = await TpcApiService.getLessonStudentsByLessonId(lessonId);
+  //     this.comments = response.data;
+  //   }
+  //   catch (e) {
+  //     alert ("No hay quejas para esta clase");
+  //     this.$router.push('/');
+  //   }
+  // }
 }
 </script>
 

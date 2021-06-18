@@ -20,8 +20,7 @@
     </v-app-bar>
 
     <v-main>
-<!--      <router-view></router-view>-->
-      <VerReportes></VerReportes>
+      <router-view></router-view>
     </v-main>
 
     <v-footer>
@@ -32,19 +31,16 @@
 
 <script>
 import NavigationDrawer from "./components/general/navigation-drawer-coordinator";
-import VerReportes from "./views/coordinator/detalle-queja";
 
 export default {
   name: 'App',
   components: {
-    VerReportes,
     NavigationDrawer,
   },
-  data() {
-    return {
-      drawer: true,
-    }
-  },
+  data: () => ({
+    drawer: true,
+    group: null,
+  }),
   methods: {
     toggleDrawer() {
       this.drawer = !this.drawer;

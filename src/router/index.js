@@ -5,39 +5,24 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Login',
-    component: () => import('../views/Login')
+    path: '/coordinator/:id/main',
+    name: 'MainCoordinator',
+    component: ()=> import('../views/coordinator/main-coordinator')
   },
   {
-    path: '/tutor/:id/workshops',
-    name: 'ListWorkshops',
-    component: () => import('../components/tutors/list-workshops')
-  },
-  {
-    path: '/tutor/:id/workshops/1', //acca seria /tutor/:id/workshops/:wsid
-    name: 'SeeSpecificWorkshop',
-    component: () => import('../components/tutors/see-specific-workshop')
-  },
-  {
-    path: '/student/:id',
-    name:'MainStudent',
-    component: () => import('../components/students/general-header-side-var')
-  },
-  {
-    path:'/coordinator/:id/options',
-    name: 'SeeOptions',
-    component: () => import('../components/coordinators/see-specific-class-options')
-  },
-  {
-      path: '/coordinator/:id',
-      name: 'MainCoordinator',
-      component: ()=> import('../views/coordinator/main-coordinator')
-  },
-  {
-    path: '/coordinator/:id',
+    path: '/coordinator/:id/reports',
     name: 'VerReportes',
     component: ()=> import('../views/coordinator/ver-reportes')
+  },
+  {
+    path: '/coordinator/:id/reports/complaints',
+    name: 'VerQuejas',
+    component: ()=> import('../views/coordinator/ver-quejas')
+  },
+  {
+    path: '/coordinator/:id/reports/complaints/:cid',
+    name: 'DetalleQueja',
+    component: ()=> import('../views/coordinator/detalle-queja')
   },
 ]
 

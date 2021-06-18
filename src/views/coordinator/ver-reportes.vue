@@ -8,13 +8,14 @@
       <v-container class="d-flex flex-column">
         <v-btn class="btn-principal cyan--text text--darken-2" outlined>Ver clases</v-btn>
         <v-btn class="btn-principal cyan--text text--darken-2" outlined>Ver tendencia de reserva de horarios</v-btn>
-        <v-btn class="btn-principal cyan--text text--darken-2" outlined>Ver quejas</v-btn>
+        <v-btn class="btn-principal cyan--text text--darken-2" outlined
+               href="reports/complaints">Ver quejas</v-btn>
         <v-btn class="btn-principal cyan--text text--darken-2" outlined>Ver comentarios</v-btn>
       </v-container>
-      <v-btn class="ma-2 text-capitalize font-weight-light white" elevation="0">
-        Next
-        <v-icon dark right>mdi-arrow-right</v-icon>
-      </v-btn>
+<!--      <v-btn class="ma-2 text-capitalize font-weight-light white" elevation="0">-->
+<!--        Next-->
+<!--        <v-icon dark right>mdi-arrow-right</v-icon>-->
+<!--      </v-btn>-->
     </v-container>
   </v-container>
 </template>

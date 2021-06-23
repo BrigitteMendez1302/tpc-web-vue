@@ -68,6 +68,11 @@ const routes = [
     path: '/coordinator/:id/class-assistance',  /*id:1*/
     name: 'ClassAssistance',
     component: ()=> import('../views/coordinator/class-assistance')
+  },
+  {
+    path: '/q&a',
+    name: 'Question&Answers',
+    component: ()=> import('../views/questions-and-answers')
   }
 ]
 

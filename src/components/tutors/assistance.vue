@@ -26,8 +26,9 @@
         </template>
       </v-data-table>
     </v-card-text>
-
-
+    <div class="ml-5 mr-5 container-btn">
+      <v-btn class="m-btn">GUARDAR</v-btn>
+    </div>
   </div>
 </template>
 
@@ -85,6 +86,12 @@ h1{
   margin-left: .7em;
 }
 
-
-
+.m-btn{
+  justify-self: flex-end;
+}
+.container-btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
 </style>

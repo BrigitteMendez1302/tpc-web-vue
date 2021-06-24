@@ -6,8 +6,8 @@ class LessonApiService{
     getWorkshopById(id){
         return http.get(`/lesson/${id}`)
     }
-    update(id, item){
-        return http.put(`/lesson/${id}`, item)
+    update(id, startDate, endDate){
+        return http.put(`/lesson/${id}/tutors?start=${startDate}&end=${endDate}`)
     }
 }
 

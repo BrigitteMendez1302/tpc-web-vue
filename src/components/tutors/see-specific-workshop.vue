@@ -1,8 +1,7 @@
 <template>
   <div>
-    <h1 class="ml-5 mt-5">Curso</h1>
     <div>
-      <div class="workshop-details ml-5 mr-5 pa-5">
+      <div class="workshop-details mt-6 ml-5 mr-5 pa-5">
         <h2 class="ft-20">Detalles de la clase</h2>
         <div class="pl-5">
           <h3>Tema: {{ workshop.description }}</h3>
@@ -30,13 +29,11 @@
             </v-btn>
           </template>
           <v-card>
-            <v-card-title class="text-h5">
-              Curso
-            </v-card-title>
             <v-card-text class="pb-0 pt-0">
+              <v-card-title></v-card-title>
               <v-menu
-                  ref="menu"
-                  v-model="menu"
+                  ref="menu1"
+                  v-model="menu1"
                   :close-on-content-click="false"
                   :return-value.sync="date"
                   transition="scale-transition"
@@ -62,18 +59,48 @@
                   <v-btn
                       text
                       color="primary"
-                      @click="menu = false"
+                      @click="menu1 = false"
                   >
                     Cancel
                   </v-btn>
                   <v-btn
                       text
                       color="primary"
-                      @click="$refs.menu.save(date)"
+                      @click="$refs.menu1.save(date)"
                   >
                     OK
                   </v-btn>
                 </v-date-picker>
+              </v-menu>
+            </v-card-text>
+            <v-card-text class="pb-0 pt-0">
+              <v-menu
+                  ref="menu"
+                  v-model="menu3"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  :return-value.sync="time"
+                  transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                      v-model="startTime"
+                      label="Nueva hora de fin"
+                      prepend-icon="mdi-clock-time-four-outline"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-time-picker
+                    v-if="menu3"
+                    v-model="startTime"
+                    full-width
+                    @click:minute="$refs.menu.save(time)"
+                ></v-time-picker>
               </v-menu>
             </v-card-text>
             <v-card-text class="pb-0 pt-0">
@@ -90,8 +117,8 @@
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                      v-model="time"
-                      label="Picker in menu"
+                      v-model="endTime"
+                      label="Nueva hora de fin"
                       prepend-icon="mdi-clock-time-four-outline"
                       readonly
                       v-bind="attrs"
@@ -100,34 +127,9 @@
                 </template>
                 <v-time-picker
                     v-if="menu2"
-                    v-model="time"
+                    v-model="endTime"
                     full-width
                     @click:minute="$refs.menu.save(time)"
-                ></v-time-picker>
-              </v-menu>
-            </v-card-text>
-            <v-card-text class="pb-0 pt-0">
-              <v-menu
-                  v-model="fromTimeEndMenu"
-                  :close-on-content-click="false"
-                  :nudge-right="40"
-                  transition="scale-transition"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-text-field
-                      pt-0
-                      label="Hora de fin"
-                      readonly
-                      :value="fromTimeEndDisp"
-                      v-on="on"
-                  ></v-text-field>
-                </template>
-                <v-time-picker
-                    ampm-in-title
-                    format="ampm"
-                    locale="en-in"
-                    v-model="fromTimeEndVal"
-                    @input="fromTimeEndMenu = false"
                 ></v-time-picker>
               </v-menu>
             </v-card-text>
@@ -165,29 +167,20 @@ export default {
     date: '',
     time: '20:19',
     menu: false,
+    menu1: false,
     modal: false,
     menu2: false,
+    menu3: false,
     workshop:{},
-    myStartTime:'09:57',
-    myEndTime:'10:45',
     dialog: false,
-    fromTimeMenu: false,
-    fromTimeVal: null,
-    fromTimeEndMenu: false,
-    fromTimeEndVal: null,
     editedIndex: -1,
+    startTime:'',
+    endTime: '',
+    isoStartDate:'',
+    isoEndDate:'',
   }),
   async created() {
-    try {
-      let id = this.$route.params.workshopId
-      let response = await LessonApiService.getWorkshopById(id)
-      this.workshop = response.data
-      this.date = this.formatDateIsoDate(this.workshop.startDate);
-    }
-    catch (e) {
-      alert("Taller no encontrado")
-      this.$router.push('/')
-    }
+    this.retrieveWorkshop();
   },
   computed: {
     fromDateDisp() {
@@ -196,16 +189,21 @@ export default {
     fromTimeDisp(){
       return this.fromTimeVal;
     },
-    fromTimeEndDisp(){
-      return this.fromTimeEndVal;
-    },
   },
   methods:{
     save() {
-      LessonApiService.update(this.workshop.id, this.workshop)
+      this.isoStartDate = this.date +'T'+this.startTime+':00.000Z';
+      this.isoEndDate = this.date +'T'+this.endTime+':00.000Z';
+      let startDate = new Date(this.isoStartDate);
+      let endDate = new Date(this.isoEndDate);
+      let apiFormatIsoStart = startDate.toISOString().replace(/:/g,'%3A');
+      let apiFormatIsoEnd = endDate.toISOString().replace(/:/g,'%3A');
+
+      LessonApiService.update(this.workshop.id, apiFormatIsoStart, apiFormatIsoEnd)
           .then(() => {
             this.dialog = false
             console.log("Actualizado con exito");
+            this.retrieveWorkshop();
           })
           .catch(e => {
             console.log(e);
@@ -236,9 +234,31 @@ export default {
       let strTime =  hours + ':' + minutes + ' ' + ampm;
       return strTime;
     },
+    formatNormalTime(isoDate){
+      let date = new Date(isoDate)
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      let strTime =  hours + ':' + minutes;
+      return strTime;
+    },
     navigateToSeeAttendance(){
       this.$router.push({name: 'assistance'});
     },
+    async retrieveWorkshop(){
+      try {
+        let id = this.$route.params.workshopId
+        let response = await LessonApiService.getWorkshopById(id)
+        this.workshop = response.data;
+        this.date = this.formatDateIsoDate(this.workshop.startDate);
+        this.startTime = this.formatNormalTime(this.workshop.startDate);
+        this.endTime = this.formatNormalTime(this.workshop.endDate);
+      }
+      catch (e) {
+        alert("Taller no encontrado")
+        this.$router.push('/')
+      }
+    }
   }
 }
 </script>

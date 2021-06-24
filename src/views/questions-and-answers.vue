@@ -2,35 +2,16 @@
   <v-container class="container">
     <div class="title"><h3>Questions & Answers</h3></div>
     <div class="list-container">
-      <v-list class="list">
-        <v-list-item>¿Qué es TPC?</v-list-item>
-        <v-divider></v-divider>
-        <v-list-item>¿Por dónde empiezo?</v-list-item>
-        <v-divider></v-divider>
-        <v-list-item>¿Quiénes pueden usar la plataforma?</v-list-item>
-        <v-divider></v-divider>
-        <v-list-item>Conoce los beneficios de TPC</v-list-item>
-        <v-divider></v-divider>
-        <v-list-item>¿El servicio esta dirigido solamente para universidades?</v-list-item>
-        <v-divider></v-divider>
-
-        <v-list-item>¿Cuáles son los medios de pago?</v-list-item>
-        <v-divider></v-divider>
-        <v-list-item>Quiero aportar ideas de mejora</v-list-item>
-        <v-divider></v-divider>
-        <v-list-item>¿Cómo modificar mi informacion personal?</v-list-item>
-        <v-divider></v-divider>
-        <v-list-item>¿Deseo cancelar mi plan TPC?</v-list-item>
-        <v-divider></v-divider>
-        <v-list-item>¿Buscas una guía practica sobre TPC?</v-list-item>
+      <v-list class="list" v-for="name in qandaArray" :key="name.id">
+        <v-list-item v-bind:href="'#'+name.id">{{name.id}}. {{name.title}}</v-list-item>
         <v-divider></v-divider>
 
       </v-list>
     </div>
 
-    <div class="answers-container">
-      <v-card class="answer-card elevation-1" shaped>
-        <v-card-title class="title-answer white--text">¿Por dónde empiezo?</v-card-title>
+    <div class="answers-container" v-for="name in qandaArray" :key="name.id">
+      <v-card class="answer-card elevation-1" shaped v-bind:id="name.id">
+        <v-card-title class="title-answer white--text">{{name.title}}</v-card-title>
         <v-card-text class="text-answer black--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias assumenda beatae consequatur,
           deserunt ea earum, esse fugiat incidunt laboriosam molestias natus porro qui recusandae sit tempora totam vel veritatis?
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam architecto, aspernatur dolor eius eligendi iste labore modi molestias porro
@@ -40,13 +21,29 @@
       </v-card>
 
 
+
+
     </div>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "questions-and-answers"
+  name: "questions-and-answers",
+  data: function () {
+    return {
+      qandaArray: [{id:1, title:'¿Qué es TPC?', link:'"#new"'},
+        {id:2, title:'¿Por dónde empiezo?' },
+        {id:3, title:'¿Quiénes pueden usar la plataforma?' },
+        {id:4, title:'Conoce los beneficios de TPC' },
+        {id:5, title:'¿El servicio esta dirigido solamente para universidades?' },
+        {id:6, title:'¿Cuáles son los medios de pago?' },
+        {id:7, title:'Quiero aportar ideas de mejora' },
+        {id:8, title:'¿Cómo modificar mi informacion personal?' },
+        {id:9, title:'¿Deseo cancelar mi plan TPC?' },
+        {id:10, title:'¿Buscas una guía practica sobre TPC?' } ]
+    }
+  }
 }
 </script>
 
@@ -54,7 +51,6 @@ export default {
 .container {
   align-content: center;
   justify-content: center;
-  border: 1px solid green;
   margin-top: 20px;
 }
 
@@ -78,7 +74,6 @@ export default {
 }
 
 .list {
-  column-count: 2;
   margin: 10px 0 0;
   padding: 0;
   text-align: left;

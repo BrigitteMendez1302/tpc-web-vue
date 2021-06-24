@@ -1,8 +1,21 @@
 <template>
   <v-app light>
+=======
+<!--  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" color="#2D5F8D" app>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="text-h6">
+            TPC
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            Best Registration System
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+>>>>>>> feature/components-brigitte-->
 
     <NavigationDrawer :drawer="drawer"></NavigationDrawer>
-
     <v-app-bar fixed app light clipped-left color="#0A1128" class="elevation-2">
       <v-app-bar-nav-icon @click="toggleDrawer" class="white--text"></v-app-bar-nav-icon>
 
@@ -19,7 +32,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="m-main">
         <router-view></router-view>
     </v-main>
 
@@ -59,5 +72,7 @@ export default {
 </script>
 
 <style scoped>
-
+.m-main{
+  display: inline;
+}
 </style>

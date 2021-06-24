@@ -24,10 +24,6 @@
           </template>
           <template v-slot:top>
             <v-dialog v-model="dialog" max-width="500px">
-
-
-
-
             </v-dialog>
             <v-dialog v-model="dialogDelete" max-width="500px">
 
@@ -35,14 +31,14 @@
           </template>
         </v-data-table>
       </v-card-text>
-
-
   </div>
 </template>
 
 <script>
+import LessonStudentApiService from "@/services/lesson-student-api.service";
+
 export default {
-  name: "assistence",
+  name: "assistance",
   data() {
     return {
       search: '',
@@ -52,32 +48,33 @@ export default {
         {text: 'Entrada', value: 'entrada'},
         {text: 'Salida', value: 'salida'},
         {text: 'asistencia', value: 'asistencia'},
-
       ],
-
       displayStudents: [ {id: "Carolina", codigo: "U201711783", entrada: "13:04:5", salida: "14:54:06",asistencia:false }
                           ,{id: "Raul", codigo: "U201711783", entrada: "16:04:5", salida: "18:54:06",asistencia:false }
                           ,{id: "Carlos", codigo: "U201711787", entrada: "14:04:5", salida: "19:54:06",asistencia:false }
                          ,{id: "Samul", codigo: "U201711782", entrada: "16:04:5", salida: "14:54:06",asistencia:false }]}
   },
-
   methods: {
-
-
+  async created(){
+    try {
+      let lessonId = this.$route.params.workshopId;
+      let response = await LessonStudentApiService.getLessonStudentsByLessonId(lessonId);
+      this.students = response.data;
+      console.log(this.students);
+    }
+    catch (e) {
+      alert ("No hay estudiantes registrados para esta clase");
+      this.$router.push('/');
+    }
   },
-
+}
 }
 </script>
 
 <style scoped>
-
-
 h1{
   font-size: 20px;
   margin-top: 1em;
   margin-left: .7em;
 }
-
-
-
 </style>

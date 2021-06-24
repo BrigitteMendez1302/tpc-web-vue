@@ -12,7 +12,9 @@
         </div>
       </div>
       <div class="buttons ml-5 mt-6">
-        <v-btn class="btn-tpc btn-tpc-r ml-2" color="white">Ver asistencia</v-btn>
+        <v-btn class="btn-tpc btn-tpc-r ml-2" color="white"
+               @click="navigateToSeeAttendance()">
+          Ver asistencia</v-btn>
         <v-dialog
             v-model="dialog"
             persistent
@@ -33,50 +35,74 @@
             </v-card-title>
             <v-card-text class="pb-0 pt-0">
               <v-menu
-                  v-model="fromDateMenu"
+                  ref="menu"
+                  v-model="menu"
                   :close-on-content-click="false"
-                  :nudge-right="40"
+                  :return-value.sync="date"
                   transition="scale-transition"
+                  offset-y
+                  min-width="auto"
               >
-                <template v-slot:activator="{ on }">
+                <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                      pt-0
+                      v-model="date"
                       label="Nueva fecha"
+                      prepend-icon="mdi-calendar"
                       readonly
-                      :value="fromDateDisp"
+                      v-bind="attrs"
                       v-on="on"
                   ></v-text-field>
                 </template>
                 <v-date-picker
-                    locale="en-in"
-                    v-model="fromDateVal"
+                    v-model="date"
                     no-title
-                    @input="fromDateMenu = false"
-                ></v-date-picker>
+                    scrollable
+                >
+                  <v-spacer></v-spacer>
+                  <v-btn
+                      text
+                      color="primary"
+                      @click="menu = false"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                      text
+                      color="primary"
+                      @click="$refs.menu.save(date)"
+                  >
+                    OK
+                  </v-btn>
+                </v-date-picker>
               </v-menu>
             </v-card-text>
             <v-card-text class="pb-0 pt-0">
               <v-menu
-                  v-model="fromTimeMenu"
+                  ref="menu"
+                  v-model="menu2"
                   :close-on-content-click="false"
                   :nudge-right="40"
+                  :return-value.sync="time"
                   transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="290px"
               >
-                <template v-slot:activator="{ on }">
+                <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                      pt-0
-                      label="Hora de inicio"
+                      v-model="time"
+                      label="Picker in menu"
+                      prepend-icon="mdi-clock-time-four-outline"
                       readonly
-                      :value="fromTimeDisp"
+                      v-bind="attrs"
                       v-on="on"
                   ></v-text-field>
                 </template>
                 <v-time-picker
-                    ampm-in-title
-                    format="ampm"
-                    locale="en-in"
-                    v-model="fromTimeVal"
-                    @input="fromTimeMenu = false"
+                    v-if="menu2"
+                    v-model="time"
+                    full-width
+                    @click:minute="$refs.menu.save(time)"
                 ></v-time-picker>
               </v-menu>
             </v-card-text>
@@ -136,14 +162,16 @@ import LessonApiService from '../../services/lesson-api.service'
 export default {
   name: "seeSpecificWorkshop",
   data: () => ({
+    date: '',
+    time: '20:19',
+    menu: false,
+    modal: false,
+    menu2: false,
     workshop:{},
-    myDate: '',
     myStartTime:'09:57',
     myEndTime:'10:45',
     dialog: false,
-    fromDateMenu: false,
-    fromDateVal: null,
-    fromTimeMenu: '10:45',
+    fromTimeMenu: false,
     fromTimeVal: null,
     fromTimeEndMenu: false,
     fromTimeEndVal: null,
@@ -154,7 +182,7 @@ export default {
       let id = this.$route.params.workshopId
       let response = await LessonApiService.getWorkshopById(id)
       this.workshop = response.data
-      //this.myDate = this.formatDateIsoDate(this.workshop.startDate)
+      this.date = this.formatDateIsoDate(this.workshop.startDate);
     }
     catch (e) {
       alert("Taller no encontrado")
@@ -164,7 +192,6 @@ export default {
   computed: {
     fromDateDisp() {
       return this.fromDateVal;
-      // format/do something with date
     },
     fromTimeDisp(){
       return this.fromTimeVal;
@@ -208,6 +235,9 @@ export default {
       minutes = minutes < 10 ? '0'+minutes : minutes;
       let strTime =  hours + ':' + minutes + ' ' + ampm;
       return strTime;
+    },
+    navigateToSeeAttendance(){
+      this.$router.push({name: 'assistance'});
     },
   }
 }

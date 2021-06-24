@@ -13,25 +13,16 @@
     </v-card-title>
     <v-card-text>
       <v-data-table :headers="headers"
-
-                    :items="displayStudents"
+                    :items="students"
                     :items-per-page="4"
                     :search="search"
                     class="elevation-1" ref="tutorialsTable">
-        <template v-slot:[`item.asistencia`]="{ item }">
-          <v-checkbox  small v-model="item.asistencia" @click="checkassitance"  ></v-checkbox>
+        <template #item.full_name="{ item }">{{ item.student.firstName }} {{ item.student.lastName }}</template>
+        <template v-slot:[`item.assistance`]="{ item }">
+          <v-checkbox  small v-model="item.assistance" @click="checkAssistance"  ></v-checkbox>
 
         </template>
         <template v-slot:top>
-          <v-dialog v-model="dialog" max-width="500px">
-
-
-
-
-          </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-
-          </v-dialog>
         </template>
       </v-data-table>
     </v-card-text>
@@ -49,15 +40,14 @@ export default {
     return {
       search: '',
       headers: [
-        {text: 'Nombre', value: 'id'},
-        {text: 'Codigo de alumno', value: 'codigo'},/*
+        {text: 'Alumno', value: 'full_name'},
+        {text: 'Correo electronico', value: 'student.mail'},/*
         {text: 'Entrada', value: 'entrada'},
         {text: 'Salida', value: 'salida'},*/
-        {text: 'Asistencia', value: 'asistencia'},
-
+        {text: 'Asistencia', value: 'assistance'},
       ],
       displayStudents: [ {id: "Carolina", codigo: "U201711783", entrada: "13:04:5", salida: "14:54:06",asistencia:false }
-        ,{id: "Raul", codigo: "U201711783", entrada: "16:04:5", salida: "18:54:06",asistencia:false }
+        ,{id: "Raul", codigo: "U201711783", entrada: "16:04:5", salida: "18:54:06",asistencia:true }
         ,{id: "Carlos", codigo: "U201711787", entrada: "14:04:5", salida: "19:54:06",asistencia:false }
         ,{id: "Samul", codigo: "U201711782", entrada: "16:04:5", salida: "14:54:06",asistencia:false }],
       students:[],
@@ -66,9 +56,11 @@ export default {
   async created(){
     try {
       let lessonId = this.$route.params.workshopId;
+      console.log(lessonId);
       let response = await LessonStudentApiService.getLessonStudentsByLessonId(lessonId);
       this.students = response.data;
       console.log(this.students);
+      console.log(typeof(this.students[0].assistance))
     }
     catch (e) {
       alert ("No hay estudiantes registrados para esta clase");
@@ -76,7 +68,9 @@ export default {
     }
   },
   methods: {
+    checkAssistance(){
 
+    }
   },
 
 }

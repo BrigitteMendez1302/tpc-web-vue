@@ -20,6 +20,11 @@ const routes = [
     component: () => import('../components/tutors/see-specific-workshop')
   },
   {
+    path:'/tutor/:id/workshops/:workshopId/assistance',
+    name: 'assistance',
+    component:()=> import('../components/tutors/assistance')
+  },
+  {
     path: '/student/:id',
     name:'main-student',
     component: () => import('../components/students/general-header-side-var')

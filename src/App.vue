@@ -7,10 +7,10 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
-            Vuetify Todo
+            TPC
           </v-list-item-title>
           <v-list-item-subtitle>
-            Best Todo ever
+            Best Registration System
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>

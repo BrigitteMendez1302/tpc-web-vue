@@ -9,6 +9,14 @@ class LessonApiService{
     update(id, item){
         return http.put(`/lesson/${id}`, item)
     }
+
+    create(id, item){
+        return http.post(`/lessons`, item)
+    }
+    getAllWorkshops(){
+        return http.get('/lesson')
+    }
+
 }
 
 export default new LessonApiService();

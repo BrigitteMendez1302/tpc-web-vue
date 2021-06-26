@@ -6,6 +6,10 @@ class LessonStudentApiService{
     getLessonStudentsByLessonIdAndStudentId(lessonId, studentId){
         return http.get(`/lessonstudent/${lessonId}/students/${studentId}`)
     }
+
+    create(data){
+        return http.post("/lessonstudent",data)
+    }
 }
 
 export default new LessonStudentApiService();

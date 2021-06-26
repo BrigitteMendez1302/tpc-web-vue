@@ -152,6 +152,11 @@ const routes = [
     path: '/tutor/:id/workshops',
     name: 'ListWorkshops',
     component: () => import('../components/tutors/list-workshops')
+  },
+  {
+    path: '/mensajes',
+    name: 'MENSAJES',
+    component: () => import('../components/coordinators/mail-messages-coordinator')
   }
 ]
 

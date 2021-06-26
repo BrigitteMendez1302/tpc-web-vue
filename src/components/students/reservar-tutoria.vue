@@ -9,9 +9,9 @@
     <v-container  class="d-flex pa-4 ma-9">
       <v-select
 
-          v-model="selectCourses"
+          v-model="selectCourse"
           :items="courses"
-          label="name">
+          label ="Courses" outlined>
       </v-select>
 
     </v-container>
@@ -23,7 +23,7 @@
     <h2 align="center">Selecciona el tutor</h2>
     <v-container class="d-flex pa-5 ma-9">
 
-      <v-select :items="tutors" label="Tutores" outlined></v-select>
+      <v-select  v-model="selectTutor" :items="tutors" label="Tutores" outlined></v-select>
 
     </v-container>
   </v-container>
@@ -75,8 +75,8 @@
 
 
 
-import UserCourseApiService from '../../services/user-courses-api.service'
-
+import CourseApiService from '../../services/courses-api.service'
+import TutorApiService from '../../services/tutor-api.service'
 export default {
   name: "reservar-tutoria",
 
@@ -86,27 +86,28 @@ export default {
       validacion: false,
       TotalSteps: 4,
       courses: [],
+      tutors: [],
       displaysCourses:[],
-      selectCourses:null
-
+      selectCourse:null,
+      selectTutor:null
 
 }),
 
     async beforeCreate(){
 
       try {
-       let response= await UserCourseApiService.getAllCoursesbyStudentId(this.$route.params.id)
-       for(var i=0;i<response.data.length;i++){
-        this.courses.push(response.data[i].name);
-
+       let responseC= await CourseApiService.getAll()
+       for(let i=0;i<responseC.data.length;i++){
+        this.courses.push(responseC.data[i].name);
        }
+        let responseT= await TutorApiService.getAll()
+        for(let f=0;f<responseT.data.length;f++){
+          this.tutors.push(responseT.data[f].firstName +' '+ responseT.data[f].lastName);
+        }
       }
        catch(e) {
            console.log(e);
           }
-
-
-
     },
 
 

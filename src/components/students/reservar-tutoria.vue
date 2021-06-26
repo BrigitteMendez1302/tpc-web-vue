@@ -6,8 +6,14 @@
   <section v-if="step==1">
   <v-container class="pa-0 ma-0" v-show="!hidden">
     <h2 align="center">Selecciona el curso</h2>
-    <v-container class="d-flex pa-4 ma-9">
-      <v-select :items="courses" label="Curso" outlined></v-select>
+    <v-container  class="d-flex pa-4 ma-9">
+      <v-select
+
+          v-model="selectCourses"
+          :items="courses"
+          label="name">
+      </v-select>
+
     </v-container>
   </v-container>
   </section>
@@ -67,49 +73,47 @@
 
 
 
+
+
+import UserCourseApiService from '../../services/user-courses-api.service'
+
 export default {
   name: "reservar-tutoria",
 
   data: () => ({
-    fondo: [],
-    step: 1,
-    validacion: false,
-    TotalSteps: 4,
-    courses: [
-      ['Programación 1'],
-      ['CPL1'],
-      ['Matemática básica'],
-    ],
-    tutors: [
-      ['Lucas Moreno'],
-      ['Jessica Fernandez'],
-      ['Carolina Villegas'],
-    ],
 
-    dates: [
+      step: 1,
+      validacion: false,
+      TotalSteps: 4,
+      courses: [],
+      displaysCourses:[],
+      selectCourses:null
 
-      ["2021-06-17"],
-      ["2021-05-17"],
-    ],
-    hours:[
-        ["07:00"],
-        ["09:00"],
-        ["07:00"]
-    ],
 
-    modalidad:[
-        ["Individual"],
-        ["Grupal"]
-    ]
+}),
 
-  }),
+    async beforeCreate(){
+
+      try {
+       let response= await UserCourseApiService.getAllCoursesbyStudentId(this.$route.params.id)
+       for(var i=0;i<response.data.length;i++){
+        this.courses.push(response.data[i].name);
+
+       }
+      }
+       catch(e) {
+           console.log(e);
+          }
+
+
+
+    },
+
 
   methods: {
-
-
-
     adelante:function (){
       this.step++;
+
     },
     atras:function (){
       this.step--;
@@ -118,8 +122,8 @@ export default {
       this.validacion=true;
     },
 
-   }
 
+   },
 
 
 

@@ -21,7 +21,7 @@ const routes = [
 
   },
   {
-    path:'/lesson/student/:id',
+    path:'/lessons/students/:id',
     name: 'find-workshops',
     component: () => import('../components/students/find-workshops.vue')
   },
@@ -147,7 +147,13 @@ const routes = [
     path: '/tutor/:id/workshops',
     name: 'ListWorkshops',
     component: () => import('../components/tutors/list-workshops')
+  },
+  {
+    path: '/coordinator/:id/lessons/',
+    name: 'ListLessons',
+    component: () => import('../components/coordinators/manage-schedules')
   }
+
 ]
 
 const router = new VueRouter({

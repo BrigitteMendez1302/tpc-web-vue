@@ -1,26 +1,7 @@
 <template>
-  <v-app id="inspire">
-     <v-app-bar
-      color="#0A1128"
-      app
-      dark
-    >
-      <h1 class="font-weight-bold font-italic text-h2 mx-10">TPC</h1>
 
-      <v-spacer></v-spacer>
+  <router-view></router-view>
 
-      <v-btn icon class="mx-5">
-        <v-icon>mdi-bell</v-icon>
-      </v-btn>
-
-      <v-btn icon class="mx-5">
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <v-main>
-        <router-view></router-view>
-    </v-main>
-  </v-app>
 </template>
 
 <script>

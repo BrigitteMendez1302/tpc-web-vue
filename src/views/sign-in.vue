@@ -23,18 +23,31 @@
             <div class="inside">
               Escriba el nombre completo de su institución:
               <v-divider class="separation"></v-divider>
-              <v-combobox class="combo-box" hide-selected solo label="Buscar institución"></v-combobox>
+              <v-combobox class="combo-box" hide-selected solo label="Buscar institución"
+                          :items="universities" item-text="id" v-model="asa"></v-combobox>
             </div>
           </div>
           <div class="card-container second">
             <div class="cont-data">
               <div class="name">TPC</div>
-              <v-text-field solo label="Código del alumno" class="field"></v-text-field>
-              <v-text-field solo label="Contraseña" class="field"></v-text-field>
-              <div class="more-options">
-
+              <div class="field-txt">
+                <v-text-field solo label="Código del alumno" class="field"></v-text-field>
+                <v-text-field solo label="Contraseña" class="field" :value="userPassword"
+                              :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                              @click:append="() => (value = !value)"
+                              :type="value ? 'password' : 'text'"
+                              :rules="[rules.password]"
+                              @input="_=>userPassword=_"></v-text-field>
               </div>
-              <v-btn>Sign In</v-btn>
+              <div class="more-options">
+                <div class="check-sign-in">
+                  <v-checkbox label="Remember me?"></v-checkbox>
+                </div>
+                <div class="forgot-password">
+                  I forgot my password
+                </div>
+              </div>
+              <button class="sign-in-button">Sign In</button>
             </div>
           </div>
         </div>
@@ -73,13 +86,102 @@
 </template>
 
 <script>
+import TpcApiService from "@/services/tpc-api.service";
+
 export default {
-  name: "sign-in"
+  name: "sign-in",
+  data() {
+    return {
+      universities: [],
+      userPassword: "",
+      valid: true,
+      value: true,
+      rules: {
+        required: value => !!value || "Required.",
+        password: value => {
+          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+          return (
+              pattern.test(value) ||
+              "Min. 8 characters with at least one capital letter, a number and a special character."
+          );
+        }
+      }
+    }
+  },
+  async beforeCreate() {
+      let response = await TpcApiService.getAllUniversities()
+      this.universities = response.data
+  }
 }
 </script>
 
 <style scoped>
+.forgot-password{
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  color: #1F86FF;
+}
 
+.check-sign-in{
+  justify-content: flex-start;
+  width: 50%;
+}
+
+.more-options{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: auto;
+  height: 50px;
+
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+
+  margin-top: 20px;
+}
+
+.sign-in-button{
+  margin-top: 20px;
+  background-color: #FFFFFF;
+  border-radius: 19px;
+  color: rgba(18, 130, 162, 1);
+  border: 1px solid rgba(18, 130, 162, 1);
+  height: 35px;
+  width: 100%;
+}
+
+.cont-data{
+  width: 80%;
+  height: 100%;
+}
+
+.field-txt{
+  padding-top: 10px;
+  width: 100%;
+
+}
+.field{
+  height: 60px;
+}
+.name {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: Roboto;
+  font-size: 50px;
+  font-style: italic;
+  font-weight: 700;
+
+  margin-top: 20px;
+}
 
 .separation{
   margin-top: 20px;
@@ -113,6 +215,8 @@ export default {
 
 .second {
   background: white;
+  display: flex;
+  justify-content: center;
 }
 
 .inside {
@@ -189,7 +293,6 @@ export default {
   margin-top: 20px;
   width: 90%;
   height: 500px;
-  border: 1px dashed blue;
 }
 
 .title-sign-in{
@@ -200,7 +303,6 @@ export default {
 
   color: rgba(10, 17, 40, 1);
 
-  border: 1px dashed black;
   width: 100%;
 }
 
@@ -213,7 +315,6 @@ export default {
 
   color: rgba(10, 17, 40, 1);
 
-  border: 1px dashed violet;
   width: 100%;
 }
 

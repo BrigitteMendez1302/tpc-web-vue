@@ -43,6 +43,9 @@ class TpcApiService {
         return http.get(`/lesson/${id}`);
     }
 
+    getAllUniversities() {
+        return http.get('/universities');
+    }
 }
 
 export default new TpcApiService();

@@ -1,86 +1,70 @@
-<!--<template>
-  <router-view></router-view>
-</template>-->
 <template>
-  <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" color="#2D5F8D" app>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6">
-            Vuetify Todo
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            Best Todo ever
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
+  <v-app light>
+    <navigation-drawer-coordinator v-if="this.$store.state.user === 3" :drawer="drawer"></navigation-drawer-coordinator>
+    <navigation-drawer-student v-if="this.$store.state.user === 1" :drawer="drawer"></navigation-drawer-student>
+    <navigation-drawer-tutor v-if="this.$store.state.user === 2" :drawer="drawer"></navigation-drawer-tutor>
+    <v-app-bar v-if="$store.state.logged" fixed app light clipped-left color="#0A1128" class="elevation-2">
+      <v-app-bar-nav-icon @click="toggleDrawer" class="white--text"></v-app-bar-nav-icon>
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-toolbar-title class="white--text font-weight-bold font-italic text-center text-h4">TPC</v-toolbar-title>
+          </v-col>
+        </v-row>
+      </v-container>
 
-      <v-divider></v-divider>
-
-      <v-list
-          dense
-          nav
-      >
-        <v-list-item
-
-            v-for="item in items"
-            :to = "item.to"
-            :key="item.title"
-            link
-        >
-          <v-list-item-icon class="c-white">
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content class="c-white">
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-app-bar
-        app
-        color="#0A1128"
-        dark
-    >
-
-      <v-app-bar-nav-icon @click="drawer=!drawer" ></v-app-bar-nav-icon>
 
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-bell</v-icon>
-      </v-btn>
 
-      <v-btn icon>
+      <v-btn icon color="white" class="mx-5" @click=" $store.state.user === 1 ? $router.push('/student/profile') :
+                                                      $store.state.user === 2 ? $router.push('/tutor/profile') :
+                                                      $router.push('/coordinator/profile') ">
         <v-icon>mdi-account</v-icon>
       </v-btn>
     </v-app-bar>
 
-    <v-main>
-      <router-view></router-view>
+    <v-main class="m-main">
+          <transition name="slide" mode="out-in">
+          <router-view>
+
+          </router-view>
+        </transition>
     </v-main>
+
+    <v-footer>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
+import NavigationDrawerCoordinator from "./components/generals/navigation-drawer-coordinator";
+import NavigationDrawerStudent from "@/components/generals/navigation-drawer-student";
+import NavigationDrawerTutor from "@/components/generals/navigation-drawer-tutor";
 export default {
-  data: () => ({ drawer: null,
-    items: [
-      { title: 'Mi calendario', icon: 'mdi-format-list-checks', to: '/' },
-      { title: 'Mis tutorias', icon: 'mdi-help-box', to: '/' },
-      { title: 'Mis talleres', icon: 'mdi-help-box', to: '/' },
-      { title: 'Rendimiento', icon: 'mdi-help-box', to: '/' },
-      { title: 'Guia de usuario', icon: 'mdi-help-box', to: '/' },
-      { title: 'Preguntas frecuenctes', icon: 'mdi-help-box', to: '/' },
-    ],
+  name: 'App',
+  components: {
+    NavigationDrawerTutor,
+    NavigationDrawerStudent,
+    NavigationDrawerCoordinator,
+  },
+  methods: {
+    toggleDrawer() {
+      this.drawer = !this.drawer;
+    },
+  },
+  data: () => ({
+    drawer: false,
   }),
-}
+};
 </script>
-
-<style scoped>
-
-.c-white{
-  color: white;
+<style>
+.slide-enter-active,
+.slide-leave-active{
+  transition: opacity 0.2s, transform 0.2s;
+}
+.slide-enter,
+.slide-leave-to{
+  opacity: 0;
+  transform: translateY(30%);
 }
 </style>

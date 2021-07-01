@@ -1,37 +1,102 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Home from '../views/Home.vue'
+import MainStudent from "@/views/student/MainStudent";
+import StudentWorkshop from "@/views/student/StudentWorkshop";
+import StudentLessons from "@/views/student/StudentLessons";
+import StudentTutorial from "@/views/student/StudentTutorial";
+import StudentCalendar from "@/views/student/StudentCalendar";
+import MainTutor from "@/views/tutor/MainTutor";
+import TutorWorkshop from "@/views/tutor/TutorWorkshop";
+import TutorTutorial from "@/views/tutor/TutorTutorial";
+import TutorPerformance from "@/views/tutor/TutorPerformance";
+import TutorProfile from "@/views/tutor/TutorProfile";
+import StudentProfile from "@/views/student/StudentProfile";
+import LogIn from "@/views/general/LogIn";
 
 Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/student',
+    name: 'HomeStudent',
+    component: MainStudent,
+  },
+    {
+    path: '/student/profile',
+    name: 'StudentProfile',
+    component: StudentProfile,
+  },
+  {
     path: '/',
-    name: 'About',
-    component: () => import('../views/About.vue')
+    name: 'Login',
+    component: LogIn,
   },
   {
-    path: '/listworkshops',
-    name: 'ListWorkshops',
-    component: () => import('../components/tutors/list-workshops')
+    path: '/tutor',
+    name: 'HomeTutor',
+    component: MainTutor,
   },
   {
-    path: '/listworkshops/1',
-    name: 'SeeSpecificWorkshop',
-    component: () => import('../components/tutors/see-specific-workshop')
+    path: '/tutor/profile',
+    name: 'TutorProfile',
+    component: TutorProfile,
   },
   {
-    path: '/mainstudent',
-    name:'MainStudent',
-    component: () => import('../components/students/general-header-side-var')
+    path: '/tutor/workshops',
+    name: 'TutorWorkshops',
+    component: TutorWorkshop,
   },
   {
-    path:'/seeoptions',
-    name: 'SeeOptions',
-    component: () => import('../components/coordinators/see-specific-class-options')
-  }
+    path: '/tutor/tutorial',
+    name: 'TutorTutorial',
+    component: TutorTutorial,
+  },
+  {
+    path: '/tutor/performance',
+    name: 'TutorPerformance',
+    component: TutorPerformance,
+  },
+  {
+    path: '/student/profile',
+    name: 'StudentProfile',
+    component: Home
+  },
+  {
+    path: '/student/workshops',
+    name: 'StudentWorkshopsList',
+    component: StudentWorkshop
+  },
+  {
+    path: '/student/lessons',
+    name: 'StudentLessonsList',
+    component: StudentLessons
+  },
+  {
+    path: '/student/lesson/:id',
+    name: 'StudentLessonDetail',
+    component: Home
+  },
+  {
+    path: '/student/tutorial/:id/enroll',
+    name: 'StudentTutorialEnroll',
+    component: Home
+  },
+  {
+    path: '/student/tutorial',
+    name: 'StudentTutorial',
+    component: StudentTutorial
+  },
+  {
+    path: '/student/calendar',
+    name: 'StudentCalendar',
+    component: StudentCalendar
+  },
 ]
 
 const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes
 })
 

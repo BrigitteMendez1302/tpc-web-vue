@@ -9,6 +9,9 @@ class LessonApiService{
     update(id, startDate, endDate){
         return http.put(`/lesson/${id}/tutors?start=${startDate}&end=${endDate}`)
     }
+    updateMeetingLink(id, link, eventId){
+        return http.put(`/lesson/${id}/link?link=${link}&eventId=${eventId}`)
+    }
 }
 
 export default new LessonApiService();

@@ -201,43 +201,53 @@ export default {
   methods:{
     createMeet() {
 
+      let end = {};
+      end["dateTime"] = this.workshop.endDate + '.805Z';
+      let start = {};
+      start["dateTime"] = this.workshop.startDate + '.805Z';
+      let summary = this.workshop.description;
+
+
+      let event = {
+        "calendarId": "primary",
+        "conferenceDataVersion": 1,
+        "sendNotifications": true,
+        "sendUpdates": "all",
+        "resource": {
+          "conferenceData": {
+            "createRequest": {
+              "requestId": "sample123",
+              "conferenceSolutionKey": {
+                "type": "hangoutsMeet"
+              }
+            }
+          },
+          "end": {
+            "dateTime": "2021-07-11T19:00:00.805Z"
+          },
+          "start": {
+            "dateTime": "2021-07-11T18:00:00.805Z"
+          },
+          "anyoneCanAddSelf": true,
+          "description": "",
+          "attendees": [],
+          "summary": ""
+        }
+      };
+
+      event["resource"]["end"] = end;
+      event["resource"]["start"] = start;
+      event["resource"]["summary"] = summary;
+
+      console.log(event);
 
       this.$gapi.login().then(() => {
         this.$gapi.getGapiClient().then((gapi) => {
-          let request = gapi.client.calendar.events.insert(
-          {
-            "calendarId": "primary",
-              "conferenceDataVersion": 1,
-              "sendNotifications": true,
-              "sendUpdates": "all",
-              "resource": {
-            "conferenceData": {
-              "createRequest": {
-                "requestId": "sample123",
-                    "conferenceSolutionKey": {
-                  "type": "hangoutsMeet"
-                }
-              }
-            },
-            "end": {
-              "dateTime": "2021-07-01T19:00:00.805Z"
-            },
-            "start": {
-              "dateTime": "2021-07-01T18:00:00.805Z"
-            },
-            "anyoneCanAddSelf": true,
-                "description": "reunion de prueba",
-                "attendees": [
-              {"email": "brigittemmendezpastor@gmail.com"},
-              {"email": "josiasolaya2016@gmail.com"},
-            ],
-                "summary": "la reu de fisica III"
-          }
-          });
+          let request = gapi.client.calendar.events.insert(event);
 
           request.execute(function (event) {
             console.log(event);
-            window.open(event.htmlLink, '_blank');
+            //LessonApiService.updateMeetingLink(this.workshop.id, event["hangoutLink"], event["id"]);
           });
         })
 
@@ -261,55 +271,7 @@ export default {
             console.log(e);
           })
     },
-    all(){
-      this.authenticate();
-      this.execute();
-    },
-    authenticate() {
-        return this.$gapi.getAuthInstance()
-            .then(function() { console.log("Sign-in successful"); },
-          function(err) { console.error("Error signing in", err); });
-    },
-    execute() {
-      return this.$gapi.getGapiClient().then((gapi)=>{
-        gapi.calendar.events.insert({
-          "calendarId": "primary",
-          "conferenceDataVersion": 1,
-          "sendNotifications": true,
-          "sendUpdates": "all",
-          "resource": {
-            "conferenceData": {
-              "createRequest": {
-                "requestId": "sample123",
-                "conferenceSolutionKey": {
-                  "type": "hangoutsMeet"
-                }
-              }
-            },
-            "end": {
-              "dateTime": "2021-06-24T12:43:47.805Z"
-            },
-            "start": {
-              "dateTime": "2021-06-24T06:43:47.805Z"
-            },
-            "anyoneCanAddSelf": true,
-            "description": "reunion de prueba",
-            "attendees": [
-              {"email": "brigittemmendezpastor@gmail.com"},
-              {"email": "julissakarol2012@gmail.com"},
-              {"email": "lucas.moreno.olivos@gmail.com"},
-            ],
-            "summary": "la reu de fisica III"
-          }
-        })
-            .then(function(response) {
-                  // Handle the results here (response.result has the parsed body).
-                  console.log("Response", response);
-                },
-                function(err) { console.error("Execute error", err); });
-      })
 
-    },
     formatDateIsoDate(paramDate){
       let date = new Date(paramDate);
       let year = date.getFullYear();

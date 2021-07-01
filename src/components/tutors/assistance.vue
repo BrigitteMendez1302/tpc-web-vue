@@ -61,7 +61,6 @@ export default {
       let response = await LessonStudentApiService.getLessonStudentsByLessonId(lessonId);
       this.students = response.data;
       console.log(this.students);
-      console.log(typeof(this.students[0].assistance))
     }
     catch (e) {
       alert ("No hay estudiantes registrados para esta clase");

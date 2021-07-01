@@ -23,7 +23,7 @@
         <!--        v-text="chat.title"-->
         <v-list-item-content>
           <div>
-            <v-btn class="ml-percent" color="white" @click="navigateToSeeWorkshop(lesson.id)">Detalles</v-btn>
+            <v-btn class="ml-percent" color="white" @click="navigateToSeeWorkshop(lesson.id)">Ver mas</v-btn>
           </div>
         </v-list-item-content>
       </v-list-item>

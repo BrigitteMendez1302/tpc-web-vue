@@ -2,7 +2,7 @@
   <div>
     <div>
       <div class="workshop-details mt-6 ml-5 mr-5 pa-5">
-        <h2 class="ft-20">Detalles de la clase</h2>
+        <h2 class="ft-20">Información de la clase</h2>
         <div class="pl-5">
           <h3>Tema: {{ workshop.description }}</h3>
           <h3>Fecha: {{ formatDateIsoDate(workshop.startDate) }}</h3>
@@ -150,7 +150,7 @@
           </v-card>
         </v-dialog>
         <v-btn class=" btn-tpc btn-tpc-r ml-2" color="white"
-               href="https://meet.google.com/new" target="_blank"
+                @click="createMeet"
         >Ingresar a la sesion</v-btn>
       </div>
     </div>
@@ -160,7 +160,15 @@
 <script>
 
 import LessonApiService from '../../services/lesson-api.service'
+import Vue from 'vue'
+import VueGapi from 'vue-gapi'
 
+Vue.use(VueGapi, {
+  apiKey: 'AIzaSyAu6PEqcKVvXdFwV-EnFKhOMlHVjNrb9Z4',
+  clientId: '437532304249-udd962otmcipe2jau8i1osbljgje1jhh.apps.googleusercontent.com',
+  discoveryDocs: ['https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+  scope: 'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events',
+})
 export default {
   name: "seeSpecificWorkshop",
   data: () => ({
@@ -191,6 +199,50 @@ export default {
     },
   },
   methods:{
+    createMeet() {
+
+
+      this.$gapi.login().then(() => {
+        this.$gapi.getGapiClient().then((gapi) => {
+          let request = gapi.client.calendar.events.insert(
+          {
+            "calendarId": "primary",
+              "conferenceDataVersion": 1,
+              "sendNotifications": true,
+              "sendUpdates": "all",
+              "resource": {
+            "conferenceData": {
+              "createRequest": {
+                "requestId": "sample123",
+                    "conferenceSolutionKey": {
+                  "type": "hangoutsMeet"
+                }
+              }
+            },
+            "end": {
+              "dateTime": "2021-07-01T19:00:00.805Z"
+            },
+            "start": {
+              "dateTime": "2021-07-01T18:00:00.805Z"
+            },
+            "anyoneCanAddSelf": true,
+                "description": "reunion de prueba",
+                "attendees": [
+              {"email": "brigittemmendezpastor@gmail.com"},
+              {"email": "josiasolaya2016@gmail.com"},
+            ],
+                "summary": "la reu de fisica III"
+          }
+          });
+
+          request.execute(function (event) {
+            console.log(event);
+            window.open(event.htmlLink, '_blank');
+          });
+        })
+
+      });
+    },
     save() {
       this.isoStartDate = this.date +'T'+this.startTime+':00.000Z';
       this.isoEndDate = this.date +'T'+this.endTime+':00.000Z';
@@ -208,6 +260,55 @@ export default {
           .catch(e => {
             console.log(e);
           })
+    },
+    all(){
+      this.authenticate();
+      this.execute();
+    },
+    authenticate() {
+        return this.$gapi.getAuthInstance()
+            .then(function() { console.log("Sign-in successful"); },
+          function(err) { console.error("Error signing in", err); });
+    },
+    execute() {
+      return this.$gapi.getGapiClient().then((gapi)=>{
+        gapi.calendar.events.insert({
+          "calendarId": "primary",
+          "conferenceDataVersion": 1,
+          "sendNotifications": true,
+          "sendUpdates": "all",
+          "resource": {
+            "conferenceData": {
+              "createRequest": {
+                "requestId": "sample123",
+                "conferenceSolutionKey": {
+                  "type": "hangoutsMeet"
+                }
+              }
+            },
+            "end": {
+              "dateTime": "2021-06-24T12:43:47.805Z"
+            },
+            "start": {
+              "dateTime": "2021-06-24T06:43:47.805Z"
+            },
+            "anyoneCanAddSelf": true,
+            "description": "reunion de prueba",
+            "attendees": [
+              {"email": "brigittemmendezpastor@gmail.com"},
+              {"email": "julissakarol2012@gmail.com"},
+              {"email": "lucas.moreno.olivos@gmail.com"},
+            ],
+            "summary": "la reu de fisica III"
+          }
+        })
+            .then(function(response) {
+                  // Handle the results here (response.result has the parsed body).
+                  console.log("Response", response);
+                },
+                function(err) { console.error("Execute error", err); });
+      })
+
     },
     formatDateIsoDate(paramDate){
       let date = new Date(paramDate);

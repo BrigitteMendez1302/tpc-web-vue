@@ -25,20 +25,26 @@
 
 <script>
 import LessonStudentApiService from '../../services/lesson-student-api.service'
-
+import Swal from 'sweetalert2'
 export default {
 name: "see-comments",
   data: () => ({
     comments:[],
+    commentsFiltered:[],
   }),
   async created(){
     try {
       let lessonId = this.$route.params.lessonId;
-      let response = await LessonStudentApiService.getLessonStudentsByLessonId(lessonId);
+      let response = await LessonStudentApiService.getLessonStudentsFilteredByCommentByLessonId(lessonId, false);
       this.comments = response.data;
+      console.log(this.comments);
+      if(this.comments.length === 0){
+        Swal.fire({title: "No hay comentarios para esta clase, puede dirigirse a la sección de quejas"})
+        this.$router.push('/')
+      }
     }
     catch (e) {
-      alert ("No hay comentarios para esta clase");
+      Swal.fire({title:"Hubo un error, no se pudieron cargar los comentarios"});
       this.$router.push('/');
     }
   },
@@ -46,6 +52,9 @@ name: "see-comments",
     navigateToSeeComment(id) {
       this.$router.push({name: 'see-specific-comment', params: { studentId: id}});
     },
+    filterComments(){
+      this.commentsFiltered = Object.filter(this.comments, comment => comment.complaint === true)
+    }
   }
 }
 </script>
